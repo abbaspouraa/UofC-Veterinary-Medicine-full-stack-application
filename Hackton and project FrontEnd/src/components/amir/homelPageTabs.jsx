@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 
 import SearchAnimal from "./searchAnimal";
 import ListRequestedAnimals from "../Ali/requestedAnimals";
+import BookingManagement from "../Ali/onGoingRequests";
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -55,7 +56,7 @@ export default function HomePageTabs() {
                     <Tab label="Animal" {...a11yProps(0)} />
                     <Tab label="Alerts" {...a11yProps(1)} />
                     <Tab label="Requested Animals" {...a11yProps(2)} />
-                    <Tab label="User Management" {...a11yProps(3)} />
+                    <Tab label="Booking Management" {...a11yProps(3)} />
                 </Tabs>
             </Box>
 
@@ -66,7 +67,7 @@ export default function HomePageTabs() {
 
 
             <TabPanel value={value} index={1}>
-                Tab 2
+                {/*Tab 2*/}
             </TabPanel>
 
 
@@ -76,7 +77,7 @@ export default function HomePageTabs() {
 
 
             <TabPanel value={value} index={3}>
-                Tab 4
+                <BookingManagement />
             </TabPanel>
         </Box>
     );

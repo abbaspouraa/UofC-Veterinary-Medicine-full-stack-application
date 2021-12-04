@@ -10,13 +10,13 @@ import Paper from '@mui/material/Paper';
 import AnimalService from '../service/AnimalService'
 import Button from "@mui/material/Button";
 
-const ListRequestedAnimals = () => {
+const BookingManagement = () => {
 
     const [animal, setAnimal] = useState([])
 
     useEffect(() => {
 
-        AnimalService.getAllAnimalByStatus("Requested").then((Response) => {
+        AnimalService.getAllAnimalByStatus("Newly approved").then((Response) => {
             setAnimal(Response.data)
         })
     }, [])
@@ -30,26 +30,6 @@ const ListRequestedAnimals = () => {
                 console.log(error);
             })
     }
-
-
-    // const getAllAnimalByStatus = () => {
-    //     AnimalService.getAllAnimal().then((response) => {
-    //         setAnimal(response.data)
-    //         console.log(response.data);
-    //     }).catch(error =>{
-    //         console.log(error);
-    //     })
-    //}
-
-    // const deleteEmployee = (employeeId) => {
-    //    EmployeeService.deleteEmployee(employeeId).then((response) =>{
-    //     getAllEmployees();
-
-    //    }).catch(error =>{
-    //        console.log(error);
-    //    })
-
-    // }
 
     return (
         <TableContainer component={Paper}>
@@ -83,14 +63,8 @@ const ListRequestedAnimals = () => {
                                 <Button
                                     size="large"
                                     variant="contained"
-                                    onClick={() => reserveAnimal(row.animalid, "Newly approved")}
-                                >Approve</Button>
-
-                                <Button
-                                    size="large"
-                                    variant="contained"
-                                    onClick={() => reserveAnimal(row.animalid, "Rejected")}
-                                >Reject</Button>
+                                    onClick={() => reserveAnimal(row.animalid, "Canceled")}
+                                >Cancel booking</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -100,4 +74,4 @@ const ListRequestedAnimals = () => {
     );
 }
 
-export default ListRequestedAnimals
+export default BookingManagement
