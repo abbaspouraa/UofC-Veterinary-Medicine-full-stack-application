@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import SearchAnimal from "./searchAnimal";
 import ListRequestedAnimals from "../Ali/requestedAnimals";
 import BookingManagement from "../Ali/onGoingRequests";
+import UserManagement from '../../containers/UserManagement';
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -42,7 +43,7 @@ function a11yProps(index) {
     };
 }
 
-export default function HomePageTabs() {
+export default function HomePageTabs({token}) {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -57,6 +58,7 @@ export default function HomePageTabs() {
                     <Tab label="Alerts" {...a11yProps(1)} />
                     <Tab label="Requested Animals" {...a11yProps(2)} />
                     <Tab label="Booking Management" {...a11yProps(3)} />
+                    <Tab label="User Management" {...a11yProps(4)} />
                 </Tabs>
             </Box>
 
@@ -78,6 +80,11 @@ export default function HomePageTabs() {
 
             <TabPanel value={value} index={3}>
                 <BookingManagement />
+            </TabPanel>
+
+            <TabPanel value={value} index={4}>
+                <div>{token.token === "Admin" && <UserManagement />} </div>
+                <div>{token.token === "Instructor" && <UserManagement />} </div>
             </TabPanel>
         </Box>
     );

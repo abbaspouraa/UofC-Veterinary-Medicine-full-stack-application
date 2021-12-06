@@ -33,10 +33,10 @@ function App() {
         </Route>
         <Route exact path="/" element={<Home token={token}/>}>
         </Route> */}
-                <Route exact path="/" element={<HomePageTabs />}>
+                <Route exact path="/" element={<HomePageTabs token={token}/>}>
                 </Route>
-                <Route exact path="/Users" element={<UserManagement/>}>
-                </Route>
+                {/* <Route exact path="/Users" element={<UserManagement/>}>
+                </Route> */}
             </Routes>
         </Router>
     );
