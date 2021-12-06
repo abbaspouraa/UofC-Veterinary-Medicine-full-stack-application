@@ -1,20 +1,21 @@
 @media all and (min-width: 480px) {
     
     .UserManagement {
-        padding: 5px 0;
+        padding: 0px 0;
     }
 
     .SearchUserBox{
-        padding-left: 40px;
+        padding-left: 0px;
     }
 
     .UserButtons{
-        padding-left: 40px;
+        padding-left: 0px;
         padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .UserManagement h1{
-        padding-left: 40px;
+        padding-left: 0px;
         text-align: left;
     }
 }
