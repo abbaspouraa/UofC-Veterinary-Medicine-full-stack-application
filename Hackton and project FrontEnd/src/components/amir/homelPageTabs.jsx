@@ -9,6 +9,8 @@ import SearchAnimal from "./searchAnimal";
 import ListRequestedAnimals from "../Ali/requestedAnimals";
 import BookingManagement from "../Ali/onGoingRequests";
 import UserManagement from '../../containers/UserManagement';
+import Alerts from '../../containers/Alerts';
+import Treatments from '../../containers/Treatments';
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -56,9 +58,10 @@ export default function HomePageTabs({token}) {
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Animal" {...a11yProps(0)} />
                     <Tab label="Alerts" {...a11yProps(1)} />
-                    <Tab label="Requested Animals" {...a11yProps(2)} />
-                    <Tab label="Booking Management" {...a11yProps(3)} />
-                    <Tab label="User Management" {...a11yProps(4)} />
+                    <Tab label="Treatments" {...a11yProps(2)} />
+                    <Tab label="Requested Animals" {...a11yProps(3)} />
+                    <Tab label="Booking Management" {...a11yProps(4)} />
+                    <Tab label="User Management" {...a11yProps(5)} />
                 </Tabs>
             </Box>
 
@@ -69,20 +72,24 @@ export default function HomePageTabs({token}) {
 
 
             <TabPanel value={value} index={1}>
-                {/*Tab 2*/}
+                <Alerts />
             </TabPanel>
 
-
             <TabPanel value={value} index={2}>
-                <ListRequestedAnimals />
+                <Treatments />
             </TabPanel>
 
 
             <TabPanel value={value} index={3}>
+                <ListRequestedAnimals />
+            </TabPanel>
+
+
+            <TabPanel value={value} index={4}>
                 <BookingManagement />
             </TabPanel>
 
-            <TabPanel value={value} index={4}>
+            <TabPanel value={value} index={5}>
                 <div>{token.token === "Admin" && <UserManagement />} </div>
                 <div>{token.token === "Instructor" && <UserManagement />} </div>
             </TabPanel>
