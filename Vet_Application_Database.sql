@@ -46,7 +46,9 @@ CREATE TABLE USER (
 INSERT INTO USER (UserId,FName,LName,Email,Role, password)
 VALUES
 ('1','Ali','Zirahi','ali.zirahi@gmail.com','Admin', "123"),
-('2','Amir','Abbaspour','amir@gmail.com','Admin', "321");
+('2','Amir','Abbaspour','amir@gmail.com','Admin', "321"),
+('3','Cameron','Pepper','cameron@gmail.com','Instructor', "456"),
+('4','Jeff','Smith','js@gmail.com','Technician', "654");
 
 DROP TABLE IF EXISTS COMMENT;
 CREATE TABLE COMMENT (
