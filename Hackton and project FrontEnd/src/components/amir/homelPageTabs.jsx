@@ -11,6 +11,7 @@ import BookingManagement from "../Ali/onGoingRequests";
 import UserManagement from '../../containers/UserManagement';
 import Alerts from '../../containers/Alerts';
 import Treatments from '../../containers/Treatments';
+import Comments from "./comments";
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -67,7 +68,7 @@ export default function HomePageTabs({token}) {
 
 
             <TabPanel value={value} index={0}>
-                <SearchAnimal />
+                <SearchAnimal token={token} />
             </TabPanel>
 
 
