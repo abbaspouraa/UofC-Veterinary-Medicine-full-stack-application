@@ -46,6 +46,8 @@ public class User {
 //    @Column(name = "Email")
 //    @NotEmpty(message = "Email is required!")
     private String email;
+    
+    private String blocked;
 
 //    @Column(name = "CREATED_AT", nullable = false, updatable = false)
 //    @Temporal(TemporalType.TIMESTAMP)
@@ -82,19 +84,19 @@ public class User {
         this.password = password;
     }
 
-    public String getfFname() {
+    public String getfname() {
         return fname;
     }
 
-    public void setfFname(String fName) {
+    public void setfname(String fName) {
         this.fname = fName;
     }
 
-    public String getlLname() {
+    public String getlname() {
         return lname;
     }
 
-    public void setlLname(String lName) {
+    public void setlname(String lName) {
         this.lname = lName;
     }
 
@@ -121,4 +123,12 @@ public class User {
     public Long getId() {
         return id;
     }
+
+	public String getBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(String blocked) {
+		this.blocked = blocked;
+	}
 }
