@@ -36,48 +36,57 @@ public class UserServiceImpl{
 		return userRepo.findAll();
 	}
     
-    public List<User> searchUsers(String name, String ucid, String email, String role){
-		return userRepo.searchUsers(name,ucid,email,role);
+    public List<User> searchUsers(String fname, String lname, String ucid, String email, String role){
+		return userRepo.searchUsers(fname,lname, ucid,email,role);
 	}
-
-    public User addUser(User user, Long ucid, String pass) throws AuthenticationException {
-        User demander = userRepo.findByuseridAndPassword(ucid, pass);
-        if (demander == null || !demander.getRole().equals("Admin")){
-            throw new AuthenticationException("You are not authorized!");
-        }
-        return userRepo.save(user);
+    
+    public void deleteUser(Long ucid) {
+    	User u = userRepo.findByuserid(ucid);
+    	userRepo.delete(u);
+    }
+    
+    public Integer addUser(String fname, String lname, Long ucid, String email, String role, String password) {
+    	return userRepo.addUser(fname, lname, ucid, email, role, password);
     }
 
-    public void deleteUser(Long doomedUserUcid, Long ucid, String pass) throws NotFoundException, AuthenticationException {
-        User demander = userRepo.findByuseridAndPassword(ucid, pass);
-        if (demander == null || !demander.getRole().equals("Admin")){
-            throw new AuthenticationException("You are not authorized!");
-        }
-        User u = userRepo.findByuserid(doomedUserUcid);
-        if (u==null){
-            throw new NotFoundException("Such user does not exist!");
-        }
-        userRepo.delete(u);
-    }
+//    public User addUser(User user, Long ucid, String pass) throws AuthenticationException {
+//        User demander = userRepo.findByuseridAndPassword(ucid, pass);
+//        if (demander == null || !demander.getRole().equals("Admin")){
+//            throw new AuthenticationException("You are not authorized!");
+//        }
+//        return userRepo.save(user);
+//    }
 
-    public User updateUser(User user, Long ucid, String pass) throws NotFoundException, AuthenticationException {
-        User demander = userRepo.findByuseridAndPassword(ucid, pass);
-        if (demander == null || !demander.getRole().equals("Admin")){
-            throw new AuthenticationException("You are not authorized!");
-        }
+//    public void deleteUser(Long doomedUserUcid, Long ucid, String pass) throws NotFoundException, AuthenticationException {
+//        User demander = userRepo.findByuseridAndPassword(ucid, pass);
+//        if (demander == null || !demander.getRole().equals("Admin")){
+//            throw new AuthenticationException("You are not authorized!");
+//        }
+//        User u = userRepo.findByuserid(doomedUserUcid);
+//        if (u==null){
+//            throw new NotFoundException("Such user does not exist!");
+//        }
+//        userRepo.delete(u);
+//    }
 
-        User u = userRepo.findByuserid(user.getUserid());
-        if (u==null){
-            throw new NotFoundException("Such user does not exist!");
-        }
-        return userRepo.save(user);
-    }
+//    public User updateUser(User user, Long ucid, String pass) throws NotFoundException, AuthenticationException {
+//        User demander = userRepo.findByuseridAndPassword(ucid, pass);
+//        if (demander == null || !demander.getRole().equals("Admin")){
+//            throw new AuthenticationException("You are not authorized!");
+//        }
+//
+//        User u = userRepo.findByuserid(user.getUserid());
+//        if (u==null){
+//            throw new NotFoundException("Such user does not exist!");
+//        }
+//        return userRepo.save(user);
+//    }
     
     public Map<String, String> authenticateUser(LoginRequest request){
     	User user = userRepo.findByfnameAndPassword(request.getfName(), request.getPassword());
     	HashMap<String, String> map = new HashMap<>();
     	
-    	if(user == null) {
+    	if(user == null || user.getBlocked().equals("Yes")) {
     		map.put(" ", " ");
     		return null;
     	}

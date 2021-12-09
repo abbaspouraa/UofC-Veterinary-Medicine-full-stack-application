@@ -36,42 +36,60 @@ public class UserController {
     	return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
     }
     
-    @GetMapping("/{name}/{ucid}/{email}/{role}")
-	public ResponseEntity<List<User>> searchUsers(@PathVariable(required = false) String name,
+    @GetMapping("/{fname}/{lname}/{ucid}/{email}/{role}")
+	public ResponseEntity<List<User>> searchUsers(@PathVariable(required = false) String fname,
+													 @PathVariable(required = false) String lname,
 													 @PathVariable(required = false) String ucid,
 													 @PathVariable(required = false) String email,
     												 @PathVariable(required = false) String role){
-		return ResponseEntity.status(HttpStatus.OK).body(userService.searchUsers(name, ucid, email, role));
+		return ResponseEntity.status(HttpStatus.OK).body(userService.searchUsers(fname, lname, ucid, email, role));
 	}
-
-    @PostMapping("/addUser/{ucid}/{pass}")
-    public ResponseEntity<User> addUser(
-            @RequestBody User user,
-            @PathVariable Long ucid,
-            @PathVariable String pass
-    ) throws AuthenticationException {
-        return ResponseEntity.status(HttpsURLConnection.HTTP_CREATED).body(userService.addUser(user, ucid, pass));
+    
+    @DeleteMapping("/{ucid}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long ucid){
+    	userService.deleteUser(ucid);
+    	return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    
+    @PostMapping("/{fname}/{lname}/{ucid}/{email}/{role}/{password}")
+    public ResponseEntity<Void> addUser(@PathVariable(required = false) String fname,
+										 @PathVariable(required = false) String lname,
+										 @PathVariable(required = false) Long ucid,
+										 @PathVariable(required = false) String email,
+										 @PathVariable(required = false) String role,
+										 @PathVariable(required = false) String password){
+    	userService.addUser(fname, lname, ucid, email, role, password);
+    	return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping("/{ucid}/{pass}/{deletedUcid}")
-    public ResponseEntity<Void> deleteUser(
-            @PathVariable Long deletedUcid,
-            @PathVariable Long ucid,
-            @PathVariable String pass
-    ) throws AuthenticationException, NotFoundException {
-        userService.deleteUser(deletedUcid, ucid, pass);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+//    @PostMapping("/addUser/{ucid}/{pass}")
+//    public ResponseEntity<User> addUser(
+//            @RequestBody User user,
+//            @PathVariable Long ucid,
+//            @PathVariable String pass
+//    ) throws AuthenticationException {
+//        return ResponseEntity.status(HttpsURLConnection.HTTP_CREATED).body(userService.addUser(user, ucid, pass));
+//    }
 
-    @PutMapping("/updateUser/{ucid}/{pass}")
-    public ResponseEntity<User> updateUser(
-            User user,
-            @PathVariable Long ucid,
-            @PathVariable String pass
-    ) throws NotFoundException, AuthenticationException {
+//    @DeleteMapping("/{ucid}/{pass}/{deletedUcid}")
+//    public ResponseEntity<Void> deleteUser(
+//            @PathVariable Long deletedUcid,
+//            @PathVariable Long ucid,
+//            @PathVariable String pass
+//    ) throws AuthenticationException, NotFoundException {
+//        userService.deleteUser(deletedUcid, ucid, pass);
+//        return ResponseEntity.status(HttpStatus.OK).build();
+//    }
 
-        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(user, ucid, pass));
-    }
+//    @PutMapping("/updateUser/{ucid}/{pass}")
+//    public ResponseEntity<User> updateUser(
+//            User user,
+//            @PathVariable Long ucid,
+//            @PathVariable String pass
+//    ) throws NotFoundException, AuthenticationException {
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(user, ucid, pass));
+//    }
     
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> authenticateUser(
