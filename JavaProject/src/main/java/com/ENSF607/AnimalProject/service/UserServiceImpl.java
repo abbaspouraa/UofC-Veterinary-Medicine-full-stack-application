@@ -1,5 +1,6 @@
 package com.ENSF607.AnimalProject.service;
 
+import com.ENSF607.AnimalProject.model.Animal;
 import com.ENSF607.AnimalProject.model.LoginRequest;
 import com.ENSF607.AnimalProject.model.User;
 import com.ENSF607.AnimalProject.repository.UserRepo;
@@ -23,13 +24,21 @@ public class UserServiceImpl{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<User> getAll(Long ucid, String pass) throws AuthenticationException {
-        User demander = userRepo.findByuseridAndPassword(ucid, pass);
-        if (demander == null || !demander.getRole().equals("Admin")){
-            throw new AuthenticationException("You are not authorized!");
-        }
-        return userRepo.findAll();
-    }
+//    public List<User> getAll(Long ucid, String pass) throws AuthenticationException {
+//        User demander = userRepo.findByuseridAndPassword(ucid, pass);
+//        if (demander == null || !demander.getRole().equals("Admin")){
+//            throw new AuthenticationException("You are not authorized!");
+//        }
+//        return userRepo.findAll();
+//    }
+    
+    public List<User> getAll(){
+		return userRepo.findAll();
+	}
+    
+    public List<User> searchUsers(String name, String ucid, String email, String role){
+		return userRepo.searchUsers(name,ucid,email,role);
+	}
 
     public User addUser(User user, Long ucid, String pass) throws AuthenticationException {
         User demander = userRepo.findByuseridAndPassword(ucid, pass);

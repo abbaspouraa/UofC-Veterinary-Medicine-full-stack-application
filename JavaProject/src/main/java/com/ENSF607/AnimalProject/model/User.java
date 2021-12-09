@@ -82,11 +82,11 @@ public class User {
         this.password = password;
     }
 
-    public String getfFname() {
+    public String getfname() {
         return fname;
     }
 
-    public void setfFname(String fName) {
+    public void setfname(String fName) {
         this.fname = fName;
     }
 
