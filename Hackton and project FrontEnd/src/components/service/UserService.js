@@ -8,8 +8,16 @@ class UserService{
         return axios.get(USER_BASE_REST_API_URL + '/' + "getAll");
     }
 
-    searchUsers(name, ucid, email, role){
-        return axios.get(USER_BASE_REST_API_URL + '/' + name + '/' + ucid + '/' + email + '/' + role)
+    searchUsers(fname, lname, ucid, email, role){
+        return axios.get(USER_BASE_REST_API_URL + '/' + fname + '/' + lname + '/' + ucid + '/' + email + '/' + role)
+    }
+
+    removeUser(ucid){
+        return axios.delete(USER_BASE_REST_API_URL + '/' + ucid)
+    }
+
+    addUser(fname, lname, ucid, email, role, password){
+        return axios.post(USER_BASE_REST_API_URL + '/' + fname + '/' + lname + '/' + ucid + '/' + email + '/' + role + '/' + password)
     }
 }
 
