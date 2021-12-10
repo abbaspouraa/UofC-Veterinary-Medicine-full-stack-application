@@ -39,16 +39,18 @@ CREATE TABLE USER (
     Email					varchar(200),--  not null,
     Role					varchar(50),--  not null,
     Password				varchar(30),--  not null,
+    Blocked					varchar(10),
     
     primary key (id)
 );
 
-INSERT INTO USER (UserId,FName,LName,Email,Role, password)
+INSERT INTO USER (UserId,FName,LName,Email,Role, password,blocked)
 VALUES
-('1','Ali','Zirahi','ali.zirahi@gmail.com','Admin', "123"),
-('2','Amir','Abbaspour','amir@gmail.com','Admin', "321"),
-('3','Cameron','Pepper','cameron@gmail.com','Instructor', "456"),
-('4','Jeff','Smith','js@gmail.com','Technician', "654");
+('1','Ali','Zirahi','ali.zirahi@gmail.com','Admin', "123", "No"),
+('2','Amir','Abbaspour','amir@gmail.com','Admin', "321", "No"),
+('3','Cameron','Pepper','cameron@gmail.com','Instructor', "456", "No"),
+('4','Jeff','Smith','js@gmail.com','Technician', "654", "No"),
+('5','Mike','Jones','mj@gmail.com','Technician', "789", "Yes");
 
 DROP TABLE IF EXISTS COMMENT;
 CREATE TABLE COMMENT (
