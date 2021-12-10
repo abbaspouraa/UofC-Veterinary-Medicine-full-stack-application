@@ -61,6 +61,23 @@ public class UserController {
     	userService.addUser(fname, lname, ucid, email, role, password);
     	return ResponseEntity.status(HttpStatus.OK).build();
     }
+    
+    @GetMapping("/{ucid}")
+	public ResponseEntity<User> blockUser(
+			@PathVariable Long ucid
+	) throws NotFoundException {
+		return  ResponseEntity.status(HttpStatus.OK).body(userService.blockUser(ucid));
+	}
+    
+    @PutMapping("/{fname}/{lname}/{ucid}/{email}/{role}")
+    public ResponseEntity<User> updateUser(@PathVariable(required = false) String fname,
+											 @PathVariable(required = false) String lname,
+											 @PathVariable(required = false) Long ucid,
+											 @PathVariable(required = false) String email,
+											 @PathVariable(required = false) String role) throws NotFoundException{
+    	return ResponseEntity.status(HttpStatus.OK).body(userService.editUser(fname, lname, ucid, email, role));
+    }
+    
 
 //    @PostMapping("/addUser/{ucid}/{pass}")
 //    public ResponseEntity<User> addUser(

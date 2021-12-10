@@ -96,6 +96,32 @@ public class UserServiceImpl{
     	}
     }
 
+	public User blockUser(Long ucid) throws NotFoundException {
+		User u = userRepo.findByuserid(ucid);
+		
+		if(u == null) {
+			throw new NotFoundException("That user does not exist!");
+		}
+		
+		u.setBlocked("Yes");
+		return userRepo.save(u);
+	}
+	
+	public User editUser(String fname, String lname, Long ucid, String email, String role) throws NotFoundException {
+		User u = userRepo.findByuserid(ucid);
+		
+		if(u == null) {
+			throw new NotFoundException("That user does not exist!");
+		}
+		
+		u.setfname(fname);
+		u.setlname(lname);
+		u.setEmail(email);
+		u.setRole(role);
+		
+		return userRepo.save(u);
+	}
+
 //    public List<User> findUser(String userId, String pass){
 //        String query = "SELECT * FROM user WHERE userId=\"" +
 //                userId +
