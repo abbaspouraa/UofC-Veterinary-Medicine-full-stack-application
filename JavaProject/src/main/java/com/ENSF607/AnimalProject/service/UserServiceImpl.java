@@ -83,7 +83,7 @@ public class UserServiceImpl{
 //    }
     
     public Map<String, String> authenticateUser(LoginRequest request){
-    	User user = userRepo.findByfnameAndPassword(request.getfName(), request.getPassword());
+    	User user = userRepo.findByuseridAndPassword(request.getUcid(), request.getPassword());
     	HashMap<String, String> map = new HashMap<>();
     	
     	if(user == null || user.getBlocked().equals("Yes")) {
@@ -92,6 +92,9 @@ public class UserServiceImpl{
     	}
     	else {
     		map.put("token", user.getRole());
+    		map.put("UCID", user.getUserid().toString());
+    		map.put("password", user.getPassword());
+    		
     		return map;
     	}
     }

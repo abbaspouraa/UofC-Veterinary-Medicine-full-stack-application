@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Popup from './Popup';
 
 export default function Login({ setToken }){
     const [username, setUsername] = useState("");
@@ -13,7 +14,6 @@ export default function Login({ setToken }){
     const handleSubmit = (e) =>{
         e.preventDefault();
 
-        const fname = username;
         const credentials = {username, password}
         console.log(credentials);
 
@@ -21,12 +21,13 @@ export default function Login({ setToken }){
             method: 'post',
             url: 'http://localhost:8090/user/login',
             data: {
-                "fName" : username,
+                "ucid" : username,
                 "password" : password
             }
         })
         .then((response) => {
             console.log(response.data);
+
             if(response.data != null){
                 setToken(response.data)
             }
@@ -44,11 +45,12 @@ export default function Login({ setToken }){
                 Faculty of Veterinary Medicine <br></br>
             </h1>
             <h3>Animal Management Application</h3>
+            
             <form onSubmit={handleSubmit}>
                 <TextField 
                     required
-                    id="outlined-username" 
-                    label="Username" 
+                    id="outlined-ucid" 
+                    label="UCID" 
                     variant="outlined"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)} 
@@ -64,7 +66,6 @@ export default function Login({ setToken }){
                 <br></br>
                 <Button className="loginButton" variant="contained" type='submit'>Sign in</Button>
             </form>
-
         </div>
 
     );

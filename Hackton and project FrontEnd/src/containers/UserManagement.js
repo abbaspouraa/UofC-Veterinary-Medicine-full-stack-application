@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import Popup from './Popup';
 import UserService from "../components/service/UserService";
 
-export default function UserManagement(){
+export default function UserManagement({token}){
     const [search, setSearch] = useState("");
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
@@ -65,6 +65,7 @@ export default function UserManagement(){
         UserService.addUser(fname, lname, ucid, email, role, password).catch(error =>{
             console.log(error);
         })
+        getUsers();
     }
 
     const toggleAddPopup = () => {
