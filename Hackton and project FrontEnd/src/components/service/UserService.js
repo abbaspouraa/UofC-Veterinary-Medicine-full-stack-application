@@ -19,6 +19,14 @@ class UserService{
     addUser(fname, lname, ucid, email, role, password){
         return axios.post(USER_BASE_REST_API_URL + '/' + fname + '/' + lname + '/' + ucid + '/' + email + '/' + role + '/' + password)
     }
+
+    blockUser(ucid){
+        return axios.get(USER_BASE_REST_API_URL + '/' + ucid)
+    }
+
+    editUser(fname, lname, ucid, email, role){
+        return axios.put(USER_BASE_REST_API_URL + '/' + fname + '/' + lname + '/' + ucid + '/' + email + '/' + role)
+    }
 }
 
 export default new UserService();
