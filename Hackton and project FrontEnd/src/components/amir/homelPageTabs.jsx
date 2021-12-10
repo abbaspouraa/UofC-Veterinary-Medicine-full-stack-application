@@ -62,7 +62,8 @@ export default function HomePageTabs({token}) {
                     <Tab label="Treatments" {...a11yProps(2)} />
                     <Tab label="Requested Animals" {...a11yProps(3)} />
                     <Tab label="Booking Management" {...a11yProps(4)} />
-                    <Tab label="User Management" {...a11yProps(5)} />
+                    {token.token === "Admin" && <Tab label="User Management" {...a11yProps(5)} />}
+                    {token.token === "Instructor" && <Tab label="User Management" {...a11yProps(5)}/>}
                 </Tabs>
             </Box>
 
@@ -90,10 +91,10 @@ export default function HomePageTabs({token}) {
                 <BookingManagement />
             </TabPanel>
 
-            <TabPanel value={value} index={5}>
-                <div>{token.token === "Admin" && <UserManagement />} </div>
-                <div>{token.token === "Instructor" && <UserManagement />} </div>
-            </TabPanel>
+
+            <TabPanel value={value} index={5}> 
+                <UserManagement token={token}/>
+             </TabPanel>
         </Box>
     );
 }
