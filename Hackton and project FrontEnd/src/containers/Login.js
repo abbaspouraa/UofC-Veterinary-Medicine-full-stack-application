@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import "./Login.css";
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Popup from './Popup';
 
 export default function Login({ setToken }){
     const [username, setUsername] = useState("");

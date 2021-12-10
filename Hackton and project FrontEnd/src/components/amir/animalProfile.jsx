@@ -53,7 +53,8 @@ function AnimalProfile({animal}) {
     };
 
     return (
-        <Box>
+        // <Box>
+        <TableContainer component={Paper}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="AnimalProfile" {...a11yProps(0)} />
@@ -89,7 +90,8 @@ function AnimalProfile({animal}) {
             <TabPanel value={value} index={1}>
                 <Comments />
             </TabPanel>
-        </Box>
+        </TableContainer>
+        // </Box>
     );
 }
 
