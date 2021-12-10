@@ -1,88 +1,76 @@
 package com.ENSF607.AnimalProject.model;
 
-import lombok.Data;
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
 
-import java.util.Date;
 
-@Data
-
+@Entity
+@Table(name = "ANIMAL_STATUS")
 public class AnimalStatus {
-    private Integer statusId;
-    private Integer careAttId;
-    private Integer animalId;
-    private Date date;
-    private String processDes;
-    private Integer temp;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer statusid;
+
+
+    private Integer careattid;
+
+    private String animalName;
+
+    private String date;
+    private String processDescription;
+    private Integer temperature;
     private Integer weight;
     private Integer heartRate;
     private String symptoms;
-    private String diagnosedDrug;
-    private Integer vetId;
+    private String diagnoseDrug;
+    private Integer vetid;
 
-    public AnimalStatus(Integer statusId, Integer careAttId,
-                        Integer animalId, Date date, String processDes,
-                        Integer temp, Integer weight, Integer heartRate,
-                        String symptoms, String diagnosedDrug, Integer vetId) {
-        this.statusId = statusId;
-        this.careAttId = careAttId;
-        this.animalId = animalId;
-        this.date = date;
-        this.processDes = processDes;
-        this.temp = temp;
-        this.weight = weight;
-        this.heartRate = heartRate;
-        this.symptoms = symptoms;
-        this.diagnosedDrug = diagnosedDrug;
-        this.vetId = vetId;
+    public Integer getStatusid() {
+        return statusid;
     }
 
-    public Integer getStatusId() {
-        return statusId;
+    public void setStatusid(Integer statusid) {
+        this.statusid = statusid;
     }
 
-    public void setStatusId(Integer statusId) {
-        this.statusId = statusId;
+    public Integer getCareattid() {
+        return careattid;
     }
 
-    public Integer getCareAttId() {
-        return careAttId;
+    public void setCareattid(Integer careattid) {
+        this.careattid = careattid;
     }
 
-    public void setCareAttId(Integer careAttId) {
-        this.careAttId = careAttId;
+    public String getAnimalName() {
+        return animalName;
     }
 
-    public Integer getAnimalId() {
-        return animalId;
+    public void setAnimalName(String animalName) {
+        this.animalName = animalName;
     }
 
-    public void setAnimalId(Integer animalId) {
-        this.animalId = animalId;
-    }
-
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public String getProcessDes() {
-        return processDes;
+    public String getProcessDescription() {
+        return processDescription;
     }
 
-    public void setProcessDes(String processDes) {
-        this.processDes = processDes;
+    public void setProcessDescription(String processDescription) {
+        this.processDescription = processDescription;
     }
 
-    public Integer getTemp() {
-        return temp;
+    public Integer getTemperature() {
+        return temperature;
     }
 
-    public void setTemp(Integer temp) {
-        this.temp = temp;
+    public void setTemperature(Integer temperature) {
+        this.temperature = temperature;
     }
 
     public Integer getWeight() {
@@ -109,19 +97,20 @@ public class AnimalStatus {
         this.symptoms = symptoms;
     }
 
-    public String getDiagnosedDrug() {
-        return diagnosedDrug;
+    public String getDiagnoseDrug() {
+        return diagnoseDrug;
     }
 
-    public void setDiagnosedDrug(String diagnosedDrug) {
-        this.diagnosedDrug = diagnosedDrug;
+    public void setDiagnoseDrug(String diagnoseDrug) {
+        this.diagnoseDrug = diagnoseDrug;
     }
 
-    public Integer getVetId() {
-        return vetId;
+    public Integer getVetid() {
+        return vetid;
     }
 
-    public void setVetId(Integer vetId) {
-        this.vetId = vetId;
+    public void setVetid(Integer vetid) {
+        this.vetid = vetid;
     }
+
 }
