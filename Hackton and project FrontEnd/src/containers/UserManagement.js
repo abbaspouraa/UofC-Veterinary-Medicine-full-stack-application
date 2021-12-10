@@ -71,6 +71,12 @@ export default function UserManagement(){
         setIsAddOpen(!isAddOpen);
     }
 
+    const editUser = () => {
+        toggleEditPopup();
+        UserService.editUser(fname, lname, ucid, email, role).catch(error =>{
+            console.log(error);
+        })
+    }
     const toggleEditPopup = () => {
         setIsEditOpen(!isEditOpen);
     }
@@ -86,6 +92,12 @@ export default function UserManagement(){
         setIsRemoveOpen(!isRemoveOpen);
     }
 
+    const blockUser = () =>{
+        toggleBlockPopup();
+        UserService.blockUser(ucid).catch(error =>{
+            console.log(error);
+        })
+    }
     const toggleBlockPopup = () => {
         setIsBlockOpen(!isBlockOpen);
     }
@@ -225,18 +237,10 @@ export default function UserManagement(){
                             value={role}
                             onChange={(e) => setRole(e.target.value)} 
                         />
-                        <TextField 
-                            id="outlined-Password" 
-                            label="Password" 
-                            variant="outlined"
-                            size="small"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)} 
-                        /> 
                         </div>
                         <div>
                         <Stack spacing={2} direction="row">
-                            <Button variant="outlined" onClick={toggleEditPopup}>Confirm</Button>
+                            <Button variant="outlined" onClick={editUser}>Confirm</Button>
                             <Button variant="outlined" onClick={toggleEditPopup}>Cancel</Button>
                         </Stack>
                         </div>    
@@ -280,7 +284,7 @@ export default function UserManagement(){
                         </div>
                         <div>
                         <Stack spacing={2} direction="row">
-                            <Button variant="outlined" onClick={toggleBlockPopup}>Confirm</Button>
+                            <Button variant="outlined" onClick={blockUser}>Confirm</Button>
                             <Button variant="outlined" onClick={toggleBlockPopup}>Cancel</Button>
                         </Stack>
                         </div>    
