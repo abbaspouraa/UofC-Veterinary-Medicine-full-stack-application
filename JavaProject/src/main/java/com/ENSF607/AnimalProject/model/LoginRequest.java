@@ -2,19 +2,19 @@ package com.ENSF607.AnimalProject.model;
 
 public class LoginRequest {
 
-	private String fName;
+	private Long ucid;
 	private String password;
 	
-	public LoginRequest(String fName, String password) {
-		this.fName = fName;
+	public LoginRequest(Long ucid, String password) {
+		this.ucid = ucid;
 		this.password = password;
 	}
 	
-	public String getfName() {
-		return fName;
+	public Long getUcid() {
+		return ucid;
 	}
-	public void setfName(String fName) {
-		this.fName = fName;
+	public void setUcid(Long ucid) {
+		this.ucid = ucid;
 	}
 	public String getPassword() {
 		return password;
