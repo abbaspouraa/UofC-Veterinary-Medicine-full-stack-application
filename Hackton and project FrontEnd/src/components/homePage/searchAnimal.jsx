@@ -5,7 +5,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import AnimalService from "../service/AnimalService";
 import Stack from "@mui/material/Stack";
-import AnimalPopup from "./AnimalPopup";
+import AnimalPopup from "../animalProfile/AnimalPopup";
 import NewAnimalAdd from "./newAnimalAdd";
 import AnimalTable from "./animalTable";
 

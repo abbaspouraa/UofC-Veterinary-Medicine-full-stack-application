@@ -12,19 +12,25 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
+@CrossOrigin(origins="*")
 public class CommentController {
 
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/addComment")
+    @PostMapping("/")
     public ResponseEntity<Void> addComment(@RequestBody Comment comment) {
         commentService.addComments(comment);
         return ResponseEntity.status(HttpURLConnection.HTTP_CREATED).build();
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/")
     public ResponseEntity<List<Comment>> getAllComments(){
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllComments());
+    }
+
+    @GetMapping("/{animalId}")
+    public ResponseEntity<List<Comment>> getAnimalComments(@PathVariable Integer animalId){
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.findCommentForAnimal(animalId));
     }
 }

@@ -1,6 +1,7 @@
 package com.ENSF607.AnimalProject.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="COMMENT")
@@ -10,10 +11,32 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer cmntid;
 
-    private String date;
     private Integer userid;
     private Integer animalid;
     private String note;
+
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+//
+//    @Column(name = "UPDATED_AT", nullable = true, updatable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date updatedAt;
+//
+    @PrePersist
+    public void setCreatedAt(){
+        this.createdAt = new Date();
+    }
+//
+//    @PreUpdate
+//    public void setUpdatedAt(){
+//        this.updatedAt = new Date();
+//    }
+
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     public Integer getCmntid() {
         return cmntid;
@@ -21,14 +44,6 @@ public class Comment {
 
     public void setCmntid(Integer cmntid) {
         this.cmntid = cmntid;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public Integer getUserid() {

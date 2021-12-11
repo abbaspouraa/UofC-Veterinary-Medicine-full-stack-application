@@ -5,7 +5,7 @@ import Login from "./containers/Login";
 import Home from "./containers/Home";
 import UserManagement from "./containers/UserManagement";
 import React, { useState } from 'react';
-import HomePageTabs from "./components/amir/homelPageTabs";
+import HomePageTabs from "./components/homePage/homelPageTabs";
 import Header from "./components/Ali/Header";
 
 function App() {

@@ -5,29 +5,31 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import Button from "@mui/material/Button";
-import AnimalPopup from "./AnimalPopup";
-import AnimalProfile from "./animalProfile";
+import AnimalPopup from "../animalProfile/AnimalPopup";
 import Stack from "@mui/material/Stack";
 import TableContainer from "@mui/material/TableContainer";
 import * as React from "react";
 import AnimalService from "../service/AnimalService";
+import AnimalTabs from "../animalProfile/animalTabs";
+import {useState} from "react";
 
 
 
 
 export default function AnimalTable({items, token}) {
 
-
     const [openAnimalProfile, setOpenAnimalProfile] = React.useState(false);
     const [anchorElAP, setAnchorElAP] = React.useState(null);
 
-    const handleClickViewAnimal = (event) => {
+    const [chosenAnimal, setChosenAnimal] = useState(0);
+
+    const handleClickViewAnimal = (event, animal) => {
+        setChosenAnimal(animal);
         setAnchorElAP(event.currentTarget);
         setOpenAnimalProfile((previousOpen) => !previousOpen);
     };
 
     const canBeOpenAP = openAnimalProfile && Boolean(anchorElAP);
-    // const id = canBeOpen ? 'transition-popper' : undefined;
 
     const reserveAnimal = (id) => {
         if (id)
@@ -79,15 +81,15 @@ export default function AnimalTable({items, token}) {
                                 <Button
                                     size="small"
                                     variant="contained"
-                                    onClick={handleClickViewAnimal}
-                                >View Profile</Button>
+                                    onClick={(e) => handleClickViewAnimal(e, row)}
+                                >{row.name} Profile</Button>
                             </TableCell>}
 
                             {canBeOpenAP && <AnimalPopup
                                 content={<>
-                                    <h3>Animal Profile</h3>
-                                    <div className="add-user">
-                                        <AnimalProfile animal={row}/>
+                                    {/*<h3>{row.name} Profile</h3>*/}
+                                    <div>
+                                        <AnimalTabs animal={chosenAnimal}/>
                                     </div>
                                     <div>
                                         <Stack spacing={2} direction="row">
@@ -95,7 +97,7 @@ export default function AnimalTable({items, token}) {
                                         </Stack>
                                     </div>
                                 </>}
-                                handleClose={handleClickViewAnimal}
+                                handleClose={(e) => handleClickViewAnimal(e, chosenAnimal)}
                             />}
 
                         </TableRow>

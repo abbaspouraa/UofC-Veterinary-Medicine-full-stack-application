@@ -3,7 +3,6 @@ package com.ENSF607.AnimalProject.service;
 import com.ENSF607.AnimalProject.model.Comment;
 import com.ENSF607.AnimalProject.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +17,12 @@ public class CommentService {
        return commentRepository.findAll();
     }
 
-    public String addComments(Comment comment){
-        commentRepository.save(comment);
-        return "Successfully added: Comment for animal with Id " + comment.getAnimalid();
+    public Comment addComments(Comment comment){
+        return commentRepository.save(comment);
+    }
+
+    public List<Comment> findCommentForAnimal(Integer animalId){
+        return commentRepository.findAllByanimalid(animalId);
     }
 
 

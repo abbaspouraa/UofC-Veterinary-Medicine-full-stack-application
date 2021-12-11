@@ -11,7 +11,7 @@ import BookingManagement from "../Ali/onGoingRequests";
 import UserManagement from '../../containers/UserManagement';
 import Alerts from '../../containers/Alerts';
 import Treatments from '../../containers/Treatments';
-import Comments from "./comments";
+import Comments from "../animalProfile/comments";
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;

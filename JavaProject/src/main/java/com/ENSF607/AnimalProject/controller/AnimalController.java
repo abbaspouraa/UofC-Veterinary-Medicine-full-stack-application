@@ -31,7 +31,6 @@ public class AnimalController {
 
 	@GetMapping("/getStats/{status}")
 	public ResponseEntity<List<Animal>> getAllByStatus(@PathVariable String status){
-		System.out.println("here");
 		return ResponseEntity.status(HttpStatus.OK).body(animalService.getAnimalsByStatus(status));
 	}
 

@@ -6,14 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {TabPanel} from "./homelPageTabs";
-import {Box} from "@mui/material";
-import Comments from "./comments";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import {TabPanel} from "../homePage/homelPageTabs";
 
 
-function AnimalProfile({animal}) {
+export default function AnimalProfile({animal}) {
     const [value, setValue] = React.useState(0);
 
     function createData(animalItem, animalData) {
@@ -22,7 +18,7 @@ function AnimalProfile({animal}) {
 
     const rows = [
         createData('Name', animal.name),
-        createData('ID', animal.id),
+        createData('ID', animal.animalid),
         createData('Species', animal.species),
         createData('Sex', animal.sex),
         createData('Breed', animal.breed),
@@ -41,26 +37,9 @@ function AnimalProfile({animal}) {
         createData('Microchip', animal.microchip),
     ]
 
-    function a11yProps(index) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    }
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
     return (
         // <Box>
         <TableContainer component={Paper}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="AnimalProfile" {...a11yProps(0)} />
-                    <Tab label="Comments" {...a11yProps(1)} />
-                </Tabs>
-            </Box>
             <TabPanel value={value} index={0}>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -86,13 +65,7 @@ function AnimalProfile({animal}) {
                     </Table>
                 </TableContainer>
             </TabPanel>
-
-            <TabPanel value={value} index={1}>
-                <Comments />
-            </TabPanel>
         </TableContainer>
         // </Box>
     );
 }
-
-export default AnimalProfile;

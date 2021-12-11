@@ -27,8 +27,6 @@ class AnimalService{
     getAllAnimalByStatus(status){
         return axios.get(ANIMAL_BASE_REST_API_URL + "/getStats/" + status);
     }
-
-
 }
 
 export default new AnimalService();
