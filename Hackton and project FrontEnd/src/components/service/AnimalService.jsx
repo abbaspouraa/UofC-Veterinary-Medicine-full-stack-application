@@ -8,8 +8,8 @@ class AnimalService{
         return axios.post(ANIMAL_BASE_REST_API_URL, animal)
     }
 
-    updateAnimalStatus(id, status){
-        return axios.get(ANIMAL_BASE_REST_API_URL + '/' + id + '/' + status);
+    updateAnimalRequest(ucid, pass, id, status){
+        return axios.get(ANIMAL_BASE_REST_API_URL + '/' + ucid + '/' + pass + '/' + id + '/' + status);
     }
 
     deleteAnimal(animalId){

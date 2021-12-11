@@ -9,11 +9,11 @@ import java.util.List;
 
 //@Component
 @Repository
-public interface AnimalRepository extends JpaRepository<Animal, Integer>{
+public interface AnimalRepository extends JpaRepository<Animal, Long>{
 
 	List<Animal> findByname(String name);
 	
-	Animal findByanimalid(Integer animalId);
+	Animal findByanimalid(Long animalId);
 
 	List<Animal> findAllBystatus(String status);
 

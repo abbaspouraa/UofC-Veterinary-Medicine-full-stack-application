@@ -14,8 +14,6 @@ import AnimalTabs from "../animalProfile/animalTabs";
 import {useState} from "react";
 
 
-
-
 export default function AnimalTable({items, token}) {
 
     const [openAnimalProfile, setOpenAnimalProfile] = React.useState(false);
@@ -33,7 +31,12 @@ export default function AnimalTable({items, token}) {
 
     const reserveAnimal = (id) => {
         if (id)
-            AnimalService.updateAnimalStatus(id, "Requested").then((response) => {
+            AnimalService.updateAnimalRequest(
+                Number(token.UCID),
+                token.password,
+                id,
+                "Requested"
+            ).then((response) => {
 
             }).catch(error =>{
                 console.log(error);
@@ -57,8 +60,11 @@ export default function AnimalTable({items, token}) {
                         <TableCell align="right">Breed</TableCell>
                         <TableCell align="right">RFID</TableCell>
                         <TableCell align="right">Status</TableCell>
-                        <TableCell align="right">Request animal</TableCell>
-                        {token.token === "Admin" && <TableCell align="right">View Profile</TableCell>}
+                        {token.token === "Instructor" && <TableCell align="right">Request</TableCell>}
+                        {token.token === "Admin" && <TableCell align="right">Requested By</TableCell>}
+                        <TableCell align="right">View Profile</TableCell>
+                        {token.token === "Instructor" && <TableCell align="right">Request animal</TableCell>}
+                        {token.token === "Admin" && <TableCell align="right">DELETE</TableCell>}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -75,20 +81,23 @@ export default function AnimalTable({items, token}) {
                             <TableCell align="right">{row.rfid}</TableCell>
                             <TableCell align="right">{row.status}</TableCell>
 
+                            {token.token === "Instructor" && <TableCell align="right">{row.request}</TableCell>}
+                            {token.token === "Admin" && <TableCell align="right">{row.bookedId}</TableCell>}
+
                             <TableCell align="right">
+                                <Button
+                                    size="small"
+                                    variant="contained"
+                                    onClick={(e) => handleClickViewAnimal(e, row)}
+                                >Profile</Button>
+                            </TableCell>
+
+                            {token.token === "Instructor" && <TableCell align="right">
                                 <Button
                                     size="small"
                                     variant="contained"
                                     onClick={() => reserveAnimal(row.animalid)}
                                 >request</Button>
-                            </TableCell>
-
-                            {token.token === "Admin" && <TableCell align="right">
-                                <Button
-                                    size="small"
-                                    variant="contained"
-                                    onClick={(e) => handleClickViewAnimal(e, row)}
-                                >{row.name} Profile</Button>
                             </TableCell>}
 
                             {token.token === "Admin" && <TableCell align="right">

@@ -1,8 +1,6 @@
 package com.ENSF607.AnimalProject.model;
 
-
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "ANIMAL")
@@ -10,64 +8,38 @@ public class Animal {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(name = "animalId",
-//			nullable = false)
-	Integer animalid;
-	
-//	@Column(name = "name")
+	Long animalid;
 	String name;
-	
-//	@Column(name = "species")
 	String species;
-	
-//	@Column(name = "sex")
 	Character sex;
-	
-//	@Column(name = "breed")
 	String breed;
-	
-//	@Column(name = "age")
 	Integer age;
-	
-//	@Column(name = "rfid")
 	String rfid;
-	
-//	@Column(name = "altered")
 	String altered;
-	
-//	@Column(name = "weight")
 	Double weight;
-	
-//	@Column(name = "specialProblem")
 	String specialProblem;
-	
-//	@Column(name = "continuousMedication")
 	String continuousMedication;
-	
-//	@Column(name = "specialInstructions")
 	String specialInstructions;
-	
-//	@Column(name = "specialDiet")
 	String specialDiet;
-	
-//	@Column(name = "tatoo")
 	String tatoo;
-	
-//	@Column(name = "color")
 	String color;
-	
-//	@Column(name = "status")
 	String status;
-	
-//	@Column(name = "bookedId")
-	Integer bookedId;
+	Long bookedId;
+	String request;
 
+	public String getRequest() {
+		return request;
+	}
 
-	public Integer getAnimalid() {
+	public void setRequest(String request) {
+		this.request = request;
+	}
+
+	public Long getAnimalid() {
 		return animalid;
 	}
 
-	public void setAnimalid(Integer animalId) {
+	public void setAnimalid(Long animalId) {
 		this.animalid = animalId;
 	}
 
@@ -191,11 +163,11 @@ public class Animal {
 		this.status = status;
 	}
 
-	public Integer getBookedId() {
+	public Long getBookedId() {
 		return bookedId;
 	}
 
-	public void setBookedId(Integer bookedId) {
+	public void setBookedId(Long bookedId) {
 		this.bookedId = bookedId;
 	}
 }

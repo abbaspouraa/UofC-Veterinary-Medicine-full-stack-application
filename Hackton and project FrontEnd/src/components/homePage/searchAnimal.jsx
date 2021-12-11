@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import AnimalService from "../service/AnimalService";
 import Stack from "@mui/material/Stack";
 import AnimalPopup from "../animalProfile/AnimalPopup";

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 @CrossOrigin("*")
 @RestController
@@ -25,7 +26,7 @@ public class AnimalController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Animal> getAnimalById(@PathVariable Integer id){
+	public ResponseEntity<Animal> getAnimalById(@PathVariable Long id){
 		return ResponseEntity.status(HttpStatus.OK).body((animalService.getAnimalById(id)));
 	}
 
@@ -45,16 +46,23 @@ public class AnimalController {
         return animalService.addAnimal(animal);
     }
 	
-	@GetMapping("/{id}/{status}")
+	@GetMapping("/{ucid}/{pass}/{id}/{booked}")
 	public ResponseEntity<Animal> updateAnimalStatus(
-			@PathVariable Integer id,
-			@PathVariable String status
-	) throws NotFoundException {
-		return  ResponseEntity.status(HttpStatus.OK).body(animalService.updateAnimalStatus(id, status));
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@PathVariable Long id,
+			@PathVariable String booked
+	) throws NotFoundException, AuthenticationException {
+		return  ResponseEntity.status(HttpStatus.OK).body(animalService.updateAnimalRequest(
+				ucid,
+				pass,
+				id,
+				booked
+		));
 	}
 	
 	@DeleteMapping("/{id}")
-    public String deleteAnimal(@PathVariable("id") int id){
+    public String deleteAnimal(@PathVariable("id") Long id){
 		return animalService.deleteAnimal(id);
     }
 	
