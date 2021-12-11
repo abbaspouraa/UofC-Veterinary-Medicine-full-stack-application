@@ -1,33 +1,16 @@
 package com.ENSF607.AnimalProject.model;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name="COMMENT")
-public class Comment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class CommentDTO {
     private Long cmntid;
-
     private Long userid;
     private Long animalid;
     private String note;
-
-    @Column(name = "CREATED_AT", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-
-    @PrePersist
-    public void setCreatedAt(){
-        this.createdAt = new Date();
-    }
-
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+    private String fname;
+    private String lname;
+    private String role;
 
     public Long getCmntid() {
         return cmntid;
@@ -59,5 +42,37 @@ public class Comment {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

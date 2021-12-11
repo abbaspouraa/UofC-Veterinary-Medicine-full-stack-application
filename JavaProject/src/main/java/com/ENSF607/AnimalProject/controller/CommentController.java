@@ -1,6 +1,7 @@
 package com.ENSF607.AnimalProject.controller;
 
 import com.ENSF607.AnimalProject.model.Comment;
+import com.ENSF607.AnimalProject.model.CommentDTO;
 import com.ENSF607.AnimalProject.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class CommentController {
     }
 
     @GetMapping("/{animalId}")
-    public ResponseEntity<List<Comment>> getAnimalComments(@PathVariable Integer animalId){
+    public ResponseEntity<List<CommentDTO>> getAnimalComments(@PathVariable Long animalId){
         return ResponseEntity.status(HttpStatus.OK).body(commentService.findCommentForAnimal(animalId));
     }
 }

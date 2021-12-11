@@ -12,10 +12,13 @@ import TextField from "@mui/material/TextField";
 import { IconButton } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SendIcon from '@mui/icons-material/Send';
+import commentsService from "../service/CommentsService";
 
-export default function Comments({animalId}) {
+export default function Comments({animalId, token}) {
 
     const [items, setItems] = useState([])
+
+    const [commentNote, setCommentNote] = useState("");
 
     const getAnimalComments = () => {
         CommentsService.getAnimalComment(animalId).then((response) => {
@@ -25,12 +28,23 @@ export default function Comments({animalId}) {
         })
     }
 
+    const postComment = () => {
+        commentsService.makeComment({
+
+            animalid: Number(animalId),
+            note: commentNote,
+            userid: Number(token.UCID)
+
+        }).then(r => {
+            console.log(r);
+        })
+    }
 
 
-    return (
+
+    return  (
 
         <List sx={{ width: '100%', maxWidth: 720, bgcolor: 'background.paper' }}>
-            <h1>{animalId}</h1>
             <ListItem alignItems={"flex-start"}>
                 <IconButton
                     // size="small"
@@ -47,11 +61,11 @@ export default function Comments({animalId}) {
                 <div>
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                            <Avatar alt={row.userid}
+                            <Avatar alt={row.role}
                             />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={row.userid}
+                            primary={row.lname + " " + row.fname}
                             secondary={
                                 <React.Fragment>
                                     <Typography
@@ -72,7 +86,7 @@ export default function Comments({animalId}) {
                 ))}
             <ListItem>
                 <TextField fullWidth={true} id="outlined-basic" label="Comment" variant="standard"
-                    // onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setCommentNote(e.target.value)}
                 />
 
                 <IconButton
@@ -80,7 +94,7 @@ export default function Comments({animalId}) {
                     color="primary"
                     aria-label="Submit comment"
                     component="span"
-                    onClick={getAnimalComments}
+                    onClick={postComment}
                 >
                     <SendIcon />
                 </IconButton>

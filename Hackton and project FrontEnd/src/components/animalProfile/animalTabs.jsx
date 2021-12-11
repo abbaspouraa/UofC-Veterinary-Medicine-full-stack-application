@@ -9,7 +9,7 @@ import Tab from "@mui/material/Tab";
 import AnimalProfile from "./animalProfile";
 
 
-export default function AnimalTabs({animal}) {
+export default function AnimalTabs({animal, token}) {
     const [value, setValue] = React.useState(0);
 
     function a11yProps(index) {
@@ -38,7 +38,7 @@ export default function AnimalTabs({animal}) {
             </TabPanel>
 
             <TabPanel value={value} index={1}>
-                <Comments animalId={animal.animalid}/>
+                <Comments animalId={animal.animalid} token={token}/>
             </TabPanel>
         </TableContainer>
         // </Box>

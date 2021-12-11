@@ -40,6 +40,12 @@ export default function AnimalTable({items, token}) {
             })
     }
 
+    const deleteAnimal = (id) => {
+      AnimalService.deleteAnimal(id).then(r => {
+          console.log(r);
+      });
+    }
+
 
     return (
         <TableContainer component={Paper}>
@@ -85,11 +91,20 @@ export default function AnimalTable({items, token}) {
                                 >{row.name} Profile</Button>
                             </TableCell>}
 
+                            {token.token === "Admin" && <TableCell align="right">
+                                <Button
+                                color="error"
+                                size="small"
+                                variant="contained"
+                                onClick={() => deleteAnimal(row.animalid)}
+                            >Delete</Button>
+                            </TableCell>}
+
                             {canBeOpenAP && <AnimalPopup
                                 content={<>
                                     {/*<h3>{row.name} Profile</h3>*/}
                                     <div>
-                                        <AnimalTabs animal={chosenAnimal}/>
+                                        <AnimalTabs animal={chosenAnimal} token={token}/>
                                     </div>
                                     <div>
                                         <Stack spacing={2} direction="row">

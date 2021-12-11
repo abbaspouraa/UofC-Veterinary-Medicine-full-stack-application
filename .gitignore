@@ -43,3 +43,4 @@ JavaProject/target/classes/com/ENSF607/AnimalProject/service/AnimalService.class
 JavaProject/target/classes/com/ENSF607/AnimalProject/service/AnimalStatusService.class
 JavaProject/target/classes/com/ENSF607/AnimalProject/service/CommentService.class
 JavaProject/target/classes/com/ENSF607/AnimalProject/service/UserServiceImpl.class
+JavaProject/target/classes/com/ENSF607/AnimalProject/model/CommentDTO.class
