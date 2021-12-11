@@ -12,6 +12,7 @@ public class AnimalStatus {
     private Integer statusid;
 
 
+    private String stage;
     private Integer careattid;
 
     private String animalName;
@@ -113,4 +114,11 @@ public class AnimalStatus {
         this.vetid = vetid;
     }
 
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
 }
