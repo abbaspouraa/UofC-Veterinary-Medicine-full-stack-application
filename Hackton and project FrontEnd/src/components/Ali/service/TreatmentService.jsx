@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const TREATMENT_BASE_REST_API_URL = 'http://localhost:8090/treatment/';
 
+
 class TreatmentService{
 
 
@@ -11,6 +12,10 @@ class TreatmentService{
 
     getAlertingAnimalStatus(stage){
         return axios.get (TREATMENT_BASE_REST_API_URL + '/'+ 'stage'+ '/' + stage);
+    }
+
+    getAnimalStatusRecordsByAnimalId(animalid){
+        return axios.get(TREATMENT_BASE_REST_API_URL + '/' + 'record' + '/' + animalid);
     }
 
     getAnimalStatusByStatusId(statusid){

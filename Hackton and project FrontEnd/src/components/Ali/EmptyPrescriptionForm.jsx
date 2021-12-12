@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+// import Stack from '@mui/material/Stack';
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
+// import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+// import TableContainer from '@mui/material/TableContainer';
+// import TableHead from '@mui/material/TableHead';
+// import TableRow from '@mui/material/TableRow';
+// import Paper from '@mui/material/Paper';
 // import * as React from 'react';
 import Box from '@mui/material/Box';
 import TreatmentService from './service/TreatmentService';
@@ -26,7 +26,6 @@ export default function EmptyPrescriptionForm({statusId, token}) {
     const [symptoms, setSymptoms] = useState('');
     const [diagnoseDrug, setDiagnoseDrug] = useState('');
     const [vetid, setVetId] = useState('');
-    //const [] = useState([]);
 
 
     const givePrescription = (e) => {

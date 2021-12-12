@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+// import Stack from '@mui/material/Stack';
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
+// import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+// import TableContainer from '@mui/material/TableContainer';
+// import TableHead from '@mui/material/TableHead';
+// import TableRow from '@mui/material/TableRow';
+// import Paper from '@mui/material/Paper';
 // import * as React from 'react';
 import Box from '@mui/material/Box';
 import TreatmentService from './service/TreatmentService';
@@ -18,6 +18,8 @@ import AnimalService from '../service/AnimalService';
 
 export default function TreatmentProcess({animalId, token}) {
 
+    const [careattid, setCareAttId] = useState(token.UCID);
+    const [animalid, setAnimalId] = useState(animalId);
     const [briefDescription, setBriefDescription] = useState('');
     const [temp, setTemp] = useState('');
     const [weight, setWeight] = useState('');
@@ -56,9 +58,6 @@ export default function TreatmentProcess({animalId, token}) {
         })
     }
 
-   
-
-
     return (
         <Box
             component="form"
@@ -70,10 +69,13 @@ export default function TreatmentProcess({animalId, token}) {
         >
             
 
-            <h1>test: {animalId}</h1>
-
-            <h2> Care Att: {token.UCID}</h2>
+           
             <h3>---  To be filled By Care Att. --- </h3>
+            <TextField disabled id="outlined-disabled" label="Care Attendent ID" variant="outlined" value={careattid}
+                            onChange={(e) => setCareAttId(e.target.value)}  />
+
+            <TextField disabled id="outlined-disabled" label="Animal ID" variant="outlined" value={animalid}
+                            onChange={(e) => setAnimalId(e.target.value)}  />
            
             <TextField  required id="outlined-error" label="Problem Description" helperText="please fill this part before submiting" variant="outlined" multiline 
                     maxRows={4} value={briefDescription}

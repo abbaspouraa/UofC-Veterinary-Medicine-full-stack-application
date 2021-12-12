@@ -30,14 +30,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
   }));
 
-
-  
 
 
 export default function AlertingAnimals({token}) {
@@ -125,13 +122,6 @@ export default function AlertingAnimals({token}) {
                              />}
 
 
-                            {/* <TableCell align="center">
-                                <Button
-                                    size="large"
-                                    variant="contained"
-                                    onClick={() => reserveAnimal(row.animalid, "Newly approved")}
-                                >Approve</Button>
-                            </TableCell> */}
                         </StyledTableRow>
                     ))}
                 </TableBody>
@@ -142,4 +132,3 @@ export default function AlertingAnimals({token}) {
     );
 }
 
-// export default AlertingAnimals

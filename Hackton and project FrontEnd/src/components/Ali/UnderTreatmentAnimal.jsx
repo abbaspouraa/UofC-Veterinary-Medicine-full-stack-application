@@ -115,15 +115,7 @@ export default function UnderTreatmentAnimal() {
                                         </>}
                                         handleClose={handleClickViewAlert}
                              />}
-
-
-                            {/* <TableCell align="center">
-                                <Button
-                                    size="large"
-                                    variant="contained"
-                                    onClick={() => reserveAnimal(row.animalid, "Newly approved")}
-                                >Approve</Button>
-                            </TableCell> */}
+                            
                         </StyledTableRow>
                     ))}
                 </TableBody>
