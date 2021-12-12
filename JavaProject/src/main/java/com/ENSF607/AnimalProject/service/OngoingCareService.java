@@ -12,14 +12,18 @@ public class OngoingCareService {
 
 	@Autowired
 	OngoingCareRepository ongoingCareRepository;
-	
-	public List<OngoingCare> searchByanimalId(Integer id){
-		return ongoingCareRepository.findByanimalid(id);
+
+	public List<OngoingCare> searchByanimalId(Long animalid){
+		return ongoingCareRepository.findByanimalid(animalid);
 	}
-	
-	public String add(OngoingCare care){
-        ongoingCareRepository.save(care);
-        return "Successfully added: Ongoing Care for animal: " + care.getAnimalid();
+
+    public List<OngoingCare> getAllOngoingCare(){
+        return ongoingCareRepository.findAll();
     }
-	
+
+
+	public OngoingCare addOngoingCare(OngoingCare care){
+        return ongoingCareRepository.save(care);
+    }
+
 }

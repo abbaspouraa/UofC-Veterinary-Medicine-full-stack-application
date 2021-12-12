@@ -1,94 +1,97 @@
 package com.ENSF607.AnimalProject.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "ONGOING_CARE")
 public class OngoingCare {
-	
-//	@Column(name = "careId")
-	Integer careid;
-	
-//	@Column(name = "userId")
-	Integer userid;
-	
-	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "animalId",
-//			nullable = false)
-	Integer animalid;
-	
-//	@Column(name = "date")
-	Date date;
-	
-//	@Column(name = "processDescription")
-	String processdescription;
-	
-//	@Column(name = "weight")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	Long ongoingCareId;
+
+	Long careAttId;
+	Long animalid;
+	String processDescription;
 	Double weight;
-	
-//	@Column(name = "drug")
 	String drug;
-	
-//	@Column(name = "nextDue")
-	Date nextdue;
-	
-//	@Column(name = "note")
+	String nextDue;
 	String note;
-	
-	public Integer getCareid() {
-		return careid;
-	}
-	public void setCareid(Integer careId) {
-		this.careid = careId;
-	}
-	public Integer getUserid() {
-		return userid;
-	}
-	public void setUserid(Integer userId) {
-		this.userid = userId;
-	}
-	public Integer getAnimalid() {
-		return animalid;
-	}
-	public void setAnimalid(Integer animalId) {
-		this.animalid = animalId;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public String getProcessdescription() {
-		return processdescription;
-	}
-	public void setProcessdescription(String processDescription) {
-		this.processdescription = processDescription;
-	}
-	public Double getWeight() {
-		return weight;
-	}
-	public void setWeight(Double weight) {
-		this.weight = weight;
-	}
-	public String getDrug() {
-		return drug;
-	}
-	public void setDrug(String drug) {
-		this.drug = drug;
-	}
-	public Date getNextdue() {
-		return nextdue;
-	}
-	public void setNextdue(Date nextDue) {
-		this.nextdue = nextDue;
-	}
-	public String getNote() {
-		return note;
-	}
-	public void setNote(String note) {
-		this.note = note;
-	}
+
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @PrePersist
+    public void setCreatedAt() {
+        this.createdAt = new Date();
+    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Long getOngoingCareId() {
+        return ongoingCareId;
+    }
+
+    public void setOngoingCareId(Long ongoingCareId) {
+        this.ongoingCareId = ongoingCareId;
+    }
+
+    public Long getCareAttId() {
+        return careAttId;
+    }
+
+    public void setCareAttId(Long careAttId) {
+        this.careAttId = careAttId;
+    }
+
+    public Long getAnimalid() {
+        return animalid;
+    }
+
+    public void setAnimalid(Long animalid) {
+        this.animalid = animalid;
+    }
+
+    public String getProcessDescription() {
+        return processDescription;
+    }
+
+    public void setProcessDescription(String processDescription) {
+        this.processDescription = processDescription;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public String getDrug() {
+        return drug;
+    }
+
+    public void setDrug(String drug) {
+        this.drug = drug;
+    }
+
+    public String getNextDue() {
+        return nextDue;
+    }
+
+    public void setNextDue(String nextDue) {
+        this.nextDue = nextDue;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 }
