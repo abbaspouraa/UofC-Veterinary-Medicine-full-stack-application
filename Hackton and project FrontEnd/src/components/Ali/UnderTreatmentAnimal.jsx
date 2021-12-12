@@ -10,10 +10,11 @@ import TreatmentService from "./service/TreatmentService";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import AnimalPopup from "../amir/AnimalPopup";
-import EmptyPrescriptionForm from "./EmptyPrescriptionForm";
+import FinalizeTreatment from "./FilledPrescriptionForm";
 //added for style
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
+
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -26,7 +27,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -37,10 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }));
 
 
-  
-
-
-export default function AlertingAnimals({token}) {
+export default function UnderTreatmentAnimal() {
 
 
     const [openAlert, setOpenAlert] = React.useState(false);
@@ -61,7 +59,7 @@ export default function AlertingAnimals({token}) {
 
     useEffect(() => {
 
-        TreatmentService.getAlertingAnimalStatus("Started").then((Response) => {
+        TreatmentService.getAlertingAnimalStatus("Under Treatment").then((Response) => {
             setAnimalStatus(Response.data)
         })
     }, [])
@@ -73,17 +71,14 @@ export default function AlertingAnimals({token}) {
     
 
     return (
-
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
                         <StyledTableCell align="center">Animal ID</StyledTableCell>
                         <StyledTableCell align="center">Problem Description</StyledTableCell>
-                        <StyledTableCell align="center">Temperature</StyledTableCell>
-                        <StyledTableCell align="center">Date</StyledTableCell>
+                        <StyledTableCell align="center">Prescription</StyledTableCell>
                         <StyledTableCell align="center" >Actions</StyledTableCell>
-
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -96,24 +91,21 @@ export default function AlertingAnimals({token}) {
                                 {row.animalid}
                             </StyledTableCell>
                             <StyledTableCell align="center">{row.processDescription}</StyledTableCell>
-                            <StyledTableCell align="center">{row.temperature}</StyledTableCell>
-                            <StyledTableCell align="center">{row.createdAt}</StyledTableCell>
-
+                            <StyledTableCell align="center">{row.diagnoseDrug}</StyledTableCell>
+                        
                             <StyledTableCell align="center">
                                 <Button
                                     size="small"
                                     variant="contained"
                                     onClick={(e) => handleClickViewAlert(e, row)}
-                                >View Notice</Button>
+                                >View Prescription</Button>
                             </StyledTableCell>
-
-
 
                             {canBeOpenAP && <AnimalPopup
                                         content={<>
                                             <h3>Prescription Form</h3>
                                             <div className="add-user">
-                                                <EmptyPrescriptionForm statusId={chosenAnimalStatus.statusid} token= {token} />
+                                                <FinalizeTreatment statusId={chosenAnimalStatus.statusid} />
                                             </div>
                                             <div>
                                                 <Stack spacing={2} direction="row">
@@ -136,10 +128,6 @@ export default function AlertingAnimals({token}) {
                     ))}
                 </TableBody>
             </Table>
-
         </TableContainer>
-        
     );
 }
-
-// export default AlertingAnimals

@@ -10,11 +10,15 @@ class TreatmentService{
         }
 
     getAlertingAnimalStatus(stage){
-        return axios.get (TREATMENT_BASE_REST_API_URL + '/' + stage);
+        return axios.get (TREATMENT_BASE_REST_API_URL + '/'+ 'stage'+ '/' + stage);
     }
 
     getAnimalStatusByStatusId(statusid){
         return axios.get(TREATMENT_BASE_REST_API_URL + '/' + statusid);
+    }
+
+    updateAnimalStatus(statusid, animalStatus){
+        return axios.put(TREATMENT_BASE_REST_API_URL + '/' + statusid,animalStatus);
     }
 
     

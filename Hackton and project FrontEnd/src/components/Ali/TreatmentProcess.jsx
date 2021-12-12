@@ -13,11 +13,11 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import TreatmentService from './service/TreatmentService';
 
+//For changing animal status
+import AnimalService from '../service/AnimalService';
+
 export default function TreatmentProcess({animalId, token}) {
 
-    // const [statusid, setStatusIs]= useState(null);
-    // const [careattid, setCareAttId] = useState('');
-    // const [date, setDate] = useState('');
     const [briefDescription, setBriefDescription] = useState('');
     const [temp, setTemp] = useState('');
     const [weight, setWeight] = useState('');
@@ -25,7 +25,6 @@ export default function TreatmentProcess({animalId, token}) {
     const [symptoms, setSymptoms] = useState('');
     const [diagnoseDrug, setDiagnoseDrug] = useState('');
     const [vetid, setVetId] = useState('');
-    //const [] = useState([]);
 
 
     const startTreatment = (e) => {
@@ -46,14 +45,18 @@ export default function TreatmentProcess({animalId, token}) {
         }).then(r => {console.log(r);})
     }
 
-    // const reserveAnimal = (id) => {
-    //     if (id)
-    //         AnimalService.updateAnimalStatus(id, "Requested").then((response) => {
 
-    //     }).catch(error =>{
-    //         console.log(error);
-    //     })
-    // }
+    //  To update animal status to Sick
+    const updateAnimalToSick = (e) => {
+        if (animalId)
+            AnimalService.updateAnimalStatus(animalId, "Under Treatment").then((response) => {
+
+        }).catch(error =>{
+            console.log(error);
+        })
+    }
+
+   
 
 
     return (
@@ -65,18 +68,14 @@ export default function TreatmentProcess({animalId, token}) {
             noValidate
             autoComplete="off"
         >
-            {/* <TextField id="outlined-basic" label="Animal ID" variant="outlined" value={fname}
-                            onChange={(e) => setFName(e.target.value)} /> */}
+            
 
             <h1>test: {animalId}</h1>
 
             <h2> Care Att: {token.UCID}</h2>
             <h3>---  To be filled By Care Att. --- </h3>
-            {/* <TextField id="outlined-basic" label="Care Attendent ID" variant="outlined" value={careattid}
-                            onChange={(e) => setCareAttId(e.target.value)}  /> */}
-            {/* <TextField id="outlined-basic" label="Date" variant="outlined" value={date}
-                            onChange={(e) => setDate(e.target.value)} /> */}
-            <TextField id="outlined-multiline-static" label="Problem Description" variant="outlined" multiline 
+           
+            <TextField  required id="outlined-error" label="Problem Description" helperText="please fill this part before submiting" variant="outlined" multiline 
                     maxRows={4} value={briefDescription}
                             onChange={(e) => setBriefDescription(e.target.value)} />
             <TextField id="outlined-basic" label="Temperature" variant="outlined" value={temp}
@@ -85,29 +84,12 @@ export default function TreatmentProcess({animalId, token}) {
                             onChange={(e) => setWeight(e.target.value)} />
             <TextField id="outlined-basic" label="Heart Rate" variant="outlined" value={heartRate}
                             onChange={(e) => setHeartRate(e.target.value)} />
-            <TextField id="outlined-multiline-static" label="Symptoms" variant="outlined" multiline 
+            <TextField required id="outlined-error" id="outlined-multiline-static" label="Symptoms" helperText="please fill this part before submiting" variant="outlined" multiline 
                     maxRows={4} value={symptoms}
                             onChange={(e) => setSymptoms(e.target.value)} />
-            {/* <h3>---  To be filled By Vet --- </h3> */}
-
-            {/* <TextField id="outlined-basic" label="Diagnosed Drug" variant="outlined" value={diagnoseDrug}
-                            onChange={(e) => setDiagnoseDrug(e.target.value)} /> */}
-            {/* <TextField id="outlined-basic" label="Vet ID" variant="outlined" value={vetid}
-                            onChange={(e) => setVetId(e.target.value)} />
-
-
-            <TextField
-                    id="outlined-multiline-static"
-                    label="Diagnosed Drug"
-                    multiline 
-                    maxRows={4}
-                    value={diagnoseDrug}
-                    onChange={(e) => setDiagnoseDrug(e.target.value)}
-                    variant="outlined"
-                    /> */}
 
             <Button size="small" variant="contained"
-                        onClick={(e) => startTreatment(e)}
+                        onClick={(e) => [startTreatment(e), updateAnimalToSick(e)]}
             >Submit</Button>
 
         </Box>
