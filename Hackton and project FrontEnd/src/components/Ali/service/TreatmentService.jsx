@@ -1,15 +1,21 @@
 import axios from 'axios'
 
-const TREATMENT_BASE_REST_API_URL = 'http://localhost:8090/treatment';
+const TREATMENT_BASE_REST_API_URL = 'http://localhost:8090/treatment/';
 
 class TreatmentService{
 
 
-    startNewTreatment(careattid,animalName,date,processDescription,temperature,weight,
-        heartRate,symptoms,diagnoseDrug,vetid){
-            return axios.post(TREATMENT_BASE_REST_API_URL + '/' + careattid + '/' + animalName + '/' + date + '/' + processDescription
-             + '/' + temperature + '/' + weight + '/' + heartRate + '/' + symptoms + '/' + diagnoseDrug + '/' + vetid);
+    startNewTreatment(treatment){
+            return axios.post(TREATMENT_BASE_REST_API_URL, treatment);
         }
+
+    getAlertingAnimalStatus(stage){
+        return axios.get (TREATMENT_BASE_REST_API_URL + '/' + stage);
+    }
+
+    getAnimalStatusByStatusId(statusid){
+        return axios.get(TREATMENT_BASE_REST_API_URL + '/' + statusid);
+    }
 
     
     
