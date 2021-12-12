@@ -20,13 +20,11 @@ public class AnimalStatusService {
         return animalStatusRepository.findAllBystage(stage);
     }
 
-    public AnimalStatus getAnimalStatusByanimalid(Long animalid){
+    public List<AnimalStatus> getAnimalStatusByanimalid(Long animalid){
         return animalStatusRepository.findAllByanimalid(animalid);
     }
 
-    public AnimalStatus getAnimalStatusBysymptoms(String symptoms){
-        return animalStatusRepository.findAllBysymptoms(symptoms);
-    }
+
 
     public AnimalStatus getAnimalStatusByStatusId(Long statusid){
         return animalStatusRepository.findBystatusid(statusid);

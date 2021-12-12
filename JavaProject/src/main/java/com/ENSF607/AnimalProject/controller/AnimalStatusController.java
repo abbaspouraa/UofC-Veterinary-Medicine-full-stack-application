@@ -28,10 +28,10 @@ public class AnimalStatusController {
         return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByStage(stage));
     }
 
-//    @GetMapping("/{animalid}")
-//    public ResponseEntity<AnimalStatus> getAnimalStatusByAnimalId(@PathVariable Long animalid){
-//        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByanimalid(animalid));
-//    }
+    @GetMapping("/record/{animalid}")
+    public ResponseEntity<List<AnimalStatus>> getAnimalStatusByAnimalId(@PathVariable Long animalid){
+        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByanimalid(animalid));
+    }
 
 //    @GetMapping("/{symptoms}")
 //    public ResponseEntity<AnimalStatus> getAnimalStatusBysymptoms(@PathVariable String symptoms){

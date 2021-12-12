@@ -10,10 +10,10 @@ public interface AnimalStatusRepository extends JpaRepository <AnimalStatus, Lon
 //    @Query(value = "SELECT * FROM ANIMAL_STATUS WHERE animalid = :animalid", nativeQuery = true)
 //    AnimalStatus getByAnimalId(@Param("animalid") Integer animalId);
 
-    AnimalStatus findAllByanimalid(Long animalid);
+    List<AnimalStatus> findAllByanimalid(Long animalid);
     List<AnimalStatus> findAllBystage(String stage);
 
-    AnimalStatus findAllBysymptoms(String symptoms);
+//    AnimalStatus findAllBysymptoms(String symptoms);
 
     AnimalStatus findBystatusid(Long statusid);
 

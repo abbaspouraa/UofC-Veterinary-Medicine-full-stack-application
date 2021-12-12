@@ -19,8 +19,8 @@ public class AnimalStatus {
     private Long animalid;
 
     private String processDescription;
-    private Integer temperature;
-    private Integer weight;
+    private Double temperature;
+    private Double weight;
     private Integer heartRate;
     private String symptoms;
     private String diagnoseDrug;
@@ -72,19 +72,19 @@ public class AnimalStatus {
         this.processDescription = processDescription;
     }
 
-    public Integer getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(Double temperature) {
         this.temperature = temperature;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
