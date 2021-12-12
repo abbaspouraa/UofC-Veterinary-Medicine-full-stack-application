@@ -44,6 +44,13 @@ public class AnimalStatusController {
     }
 
 
+    @PutMapping("/{statusid}")
+    public ResponseEntity<AnimalStatus> updateAnimalStatus(@PathVariable Long statusid,
+                                                           @RequestBody AnimalStatus animalStatus){
+        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.updateAnimalStatus(statusid,animalStatus));
+    }
+
+
     @PostMapping("/")
     public ResponseEntity<AnimalStatus> addAnimalStatus (@RequestBody AnimalStatus animalStatus){
         return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.addAnimalStatus(animalStatus));

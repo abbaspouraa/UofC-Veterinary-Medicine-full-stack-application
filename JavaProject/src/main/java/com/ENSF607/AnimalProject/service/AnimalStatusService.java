@@ -40,4 +40,17 @@ public class AnimalStatusService {
     public List<AnimalStatus> getAllAnimalStatus(){
         return animalStatusRepository.findAll();
     }
+
+    public AnimalStatus updateAnimalStatus (Long statusid, AnimalStatus animalStatus){
+        AnimalStatus updateAnimalStatus = animalStatusRepository.findBystatusid(statusid);
+
+        updateAnimalStatus.setStage(animalStatus.getStage());
+        updateAnimalStatus.setProcessDescription(animalStatus.getProcessDescription());
+        updateAnimalStatus.setDiagnoseDrug(animalStatus.getDiagnoseDrug());
+        updateAnimalStatus.setVetid(animalStatus.getVetid());
+        updateAnimalStatus.setSymptoms(animalStatus.getSymptoms());
+        updateAnimalStatus.setHeartRate(animalStatus.getHeartRate());
+        updateAnimalStatus.setTemperature(animalStatus.getTemperature());
+        return animalStatusRepository.save(updateAnimalStatus);
+    }
 }
