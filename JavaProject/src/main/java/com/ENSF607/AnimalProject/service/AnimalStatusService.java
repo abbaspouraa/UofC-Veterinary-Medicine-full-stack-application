@@ -14,23 +14,28 @@ public class AnimalStatusService {
     AnimalStatusRepository animalStatusRepository;
 
 
-//    public AnimalStatus getAnimalStatusByAnimalId (Integer animalid){
-//       // return animalStatusRepository.getByAnimalId(animalId);
-//        return animalStatusRepository.findAllByanimalid(animalid);
-//    }
+//
 
     public List<AnimalStatus> getAnimalStatusByStage(String stage){
         return animalStatusRepository.findAllBystage(stage);
     }
 
-    public Integer addAnimalStatus (Integer careattid, String animalName, String date, String processDescription,
-                                    Integer temperature, Integer weight, Integer heartRate, String symptoms, String diagnoseDrug,
-                                    Integer vetid){
-        return animalStatusRepository.addAnimalStatus(careattid,animalName,date,processDescription,temperature,weight,
-                heartRate,symptoms,diagnoseDrug,vetid);
+    public AnimalStatus getAnimalStatusByanimalid(Long animalid){
+        return animalStatusRepository.findAllByanimalid(animalid);
     }
 
-    ///////////////////////////// new
+    public AnimalStatus getAnimalStatusBysymptoms(String symptoms){
+        return animalStatusRepository.findAllBysymptoms(symptoms);
+    }
+
+    public AnimalStatus getAnimalStatusByStatusId(Long statusid){
+        return animalStatusRepository.findBystatusid(statusid);
+    }
+
+
+    public AnimalStatus addAnimalStatus(AnimalStatus animalStatus){
+        return animalStatusRepository.save(animalStatus);
+    }
 
     public List<AnimalStatus> getAllAnimalStatus(){
         return animalStatusRepository.findAll();

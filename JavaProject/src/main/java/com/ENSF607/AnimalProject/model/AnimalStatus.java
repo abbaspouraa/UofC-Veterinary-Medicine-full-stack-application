@@ -1,6 +1,7 @@
 package com.ENSF607.AnimalProject.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -9,15 +10,14 @@ public class AnimalStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer statusid;
+    private Long statusid;
 
 
     private String stage;
     private Integer careattid;
 
-    private String animalName;
+    private Long animalid;
 
-    private String date;
     private String processDescription;
     private Integer temperature;
     private Integer weight;
@@ -26,12 +26,32 @@ public class AnimalStatus {
     private String diagnoseDrug;
     private Integer vetid;
 
-    public Integer getStatusid() {
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @PrePersist
+    public void setCreatedAt() {
+        this.createdAt = new Date();
+    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Long getStatusid() {
         return statusid;
     }
 
-    public void setStatusid(Integer statusid) {
+    public void setStatusid(Long statusid) {
         this.statusid = statusid;
+    }
+
+    public Long getAnimalid() {
+        return animalid;
+    }
+
+    public void setAnimalid(Long animalid) {
+        this.animalid = animalid;
     }
 
     public Integer getCareattid() {
@@ -42,21 +62,7 @@ public class AnimalStatus {
         this.careattid = careattid;
     }
 
-    public String getAnimalName() {
-        return animalName;
-    }
-
-    public void setAnimalName(String animalName) {
-        this.animalName = animalName;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
+//
 
     public String getProcessDescription() {
         return processDescription;
@@ -121,4 +127,8 @@ public class AnimalStatus {
     public void setStage(String stage) {
         this.stage = stage;
     }
+
+
+
+
 }
