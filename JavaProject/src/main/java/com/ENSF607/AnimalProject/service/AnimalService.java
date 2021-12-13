@@ -21,19 +21,43 @@ public class AnimalService {
 	@Autowired
 	UserRepo userRepo;
 	
-	public List<Animal> getAllData(){
+	public List<Animal> getAllData(Long ucid, String pass) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null){
+			throw new AuthenticationException("Only registered users can see all the animals");
+		}
 		return animalRepository.findAll();
 	}
 
-	public List<Animal> getAnimalsByStatus(String status){
-		return animalRepository.findAllBystatus(status);
+	public List<Animal> getRequestedAnimals(Long ucid, String pass, String request) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null || !u.getRole().equals("Admin")){
+			throw new AuthenticationException("Only admins can get get all requested animals");
+		}
+		return animalRepository.findAllByrequest(request);
 	}
 
-	public Animal getAnimalById(Long id){
+	public List<Animal> getAllRequestedByMe(Long ucid, String pass) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null || !u.getRole().equals("Instructor")){
+			throw new AuthenticationException("Only instructors can get their requested animals");
+		}
+		return animalRepository.findAllBybookedId(u.getUserid());
+	}
+
+	public Animal getAnimalById(Long ucid, String pass, Long id) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null){
+			throw new AuthenticationException("Only registered users can an animals");
+		}
 		return animalRepository.findByanimalid(id);
 	}
 	
-	public List<Animal> searchByName(String name){
+	public List<Animal> searchByName(Long ucid, String pass, String name) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null){
+			throw new AuthenticationException("Only registered users search animals");
+		}
 		return animalRepository.findByname(name);
 	}
 
@@ -41,7 +65,11 @@ public class AnimalService {
 		return animalRepository.searchAnimal(name,species,sex);
 	}
 
-	public String addAnimal(Animal animal){
+	public String addAnimal(Long ucid, String pass, Animal animal) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null || !(u.getRole().equals("Care Attendant") || u.getRole().equals("Admin"))){
+			throw new AuthenticationException("Only Admins and Care Attendants can add animals");
+		}
         animalRepository.save(animal);
         return "Successfully added: Animal " + animal.getAnimalid();
     }
@@ -116,11 +144,14 @@ public class AnimalService {
 			theAnimal.setRequest("Available");
 			theAnimal.setBookedId(null);
 		}
-
 		return animalRepository.save(theAnimal);
 	}
 	
-	public String deleteAnimal(Long id){
+	public String deleteAnimal(Long ucid, String pass, Long id) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null || !(u.getRole().equals("Care Attendant") || u.getRole().equals("Admin"))){
+			throw new AuthenticationException("Only Admins and Care Attendants can delete an animals");
+		}
 		animalRepository.deleteById(id);
         return "Successfully deleted: Animal " + id;
     }

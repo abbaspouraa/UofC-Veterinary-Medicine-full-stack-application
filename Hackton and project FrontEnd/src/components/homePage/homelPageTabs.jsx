@@ -4,14 +4,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
-import SearchAnimal from "./searchAnimal";
-import ListRequestedAnimals from "../Ali/requestedAnimals";
+import SearchAnimal from "./animal/searchAnimal";
+import ListRequestedAnimals from "./requestedAnimals/requestedAnimals";
 import BookingManagement from "../Ali/onGoingRequests";
-import UserManagement from '../../containers/UserManagement';
-import Alerts from '../../containers/Alerts';
-import Treatments from '../../containers/Treatments';
-import Comments from "../animalProfile/comments";
+import UserManagement from './userManagment/UserManagement';
+import Alerts from './alerts/Alerts';
+import Treatments from './treatments/Treatments';
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -53,6 +51,8 @@ export default function HomePageTabs({token}) {
         setValue(newValue);
     };
 
+    // {token.token ==="Instructor" &&  <Tab label="Booking Management" {...a11yProps(4)} />}
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -60,10 +60,10 @@ export default function HomePageTabs({token}) {
                     <Tab label="Animal" {...a11yProps(0)} />
                     <Tab label="Alerts" {...a11yProps(1)} />
                     <Tab label="Treatments" {...a11yProps(2)} />
-                    <Tab label="Requested Animals" {...a11yProps(3)} />
-                    <Tab label="Booking Management" {...a11yProps(4)} />
-                    {token.token === "Admin" && <Tab label="User Management" {...a11yProps(5)} />}
-                    {token.token === "Instructor" && <Tab label="User Management" {...a11yProps(5)}/>}
+                    {token.token === "Admin" && <Tab label="Requested Animals" {...a11yProps(3)} />}
+                    {token.token ==="Instructor" && <Tab label="Booking Management" {...a11yProps(3)} />}
+                    {token.token === "Admin" && <Tab label="User Management" {...a11yProps(4)} />}
+                    {token.token === "Instructor" && <Tab label="User Management" {...a11yProps(4)} />}
                 </Tabs>
             </Box>
 
@@ -81,20 +81,22 @@ export default function HomePageTabs({token}) {
                 <Treatments />
             </TabPanel>
 
+            {token.token === "Admin" && <TabPanel value={value} index={3}>
+                <ListRequestedAnimals token={token} />
+            </TabPanel>}
 
-            <TabPanel value={value} index={3}>
-                <ListRequestedAnimals />
-            </TabPanel>
+            {token.token === "Instructor" && <TabPanel value={value} index={3}>
+                <BookingManagement token={token} />
+            </TabPanel>}
 
-
-            <TabPanel value={value} index={4}>
-                <BookingManagement />
-            </TabPanel>
-
-
-            <TabPanel value={value} index={5}> 
+            {token.token === "Admin" && <TabPanel value={value} index={4}>
                 <UserManagement token={token}/>
-             </TabPanel>
+            </TabPanel>}
+
+            {token.token === "Instructor" && <TabPanel value={value} index={4}>
+                <UserManagement token={token}/>
+            </TabPanel>}
+
         </Box>
     );
 }

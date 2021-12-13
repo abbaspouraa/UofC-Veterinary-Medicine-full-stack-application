@@ -1,0 +1,69 @@
+@media all and (min-width: 480px) {
+    .logInBackground{
+        background: url("University-of-Calgary.jpg") no-repeat;
+        background-size: cover;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        z-index: 0;
+    }
+
+    .Login {
+        background-color: #0f3287;
+    }
+  
+    .Login form {
+      align-items: center;
+      margin: auto;
+      max-width: 320px;
+    }
+
+    .Login form > *{
+      margin-top: 10px;
+    }
+
+    .Login h1{
+      text-align: center;
+    }
+
+    .Login h3{
+        text-align: center;
+      }
+
+    .TextBox{
+        background-color: rgba(255, 255, 255, 0.87);
+        color: white;
+    }
+
+    .loginBox{
+        margin: auto;
+        margin-top: 15rem;
+        /*display: block;*/
+        border: red;
+        text-align: center;
+        position: relative;
+        background: rgba(243, 214, 214, 0.47);
+        width: 50vh;
+        height: 50vh;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .loginLogo{
+        margin: auto;
+        background: url("UofC.png") no-repeat;
+        background-size: contain;
+        height: 10vw;
+        width: 10vw;
+    }
+
+    .Login-popup-box {
+        position: fixed;
+        background: #00000050;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+    }
+  }

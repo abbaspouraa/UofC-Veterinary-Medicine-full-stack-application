@@ -8,6 +8,7 @@ import com.ENSF607.AnimalProject.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +21,27 @@ public class CommentService {
     UserRepo userRepo;
 
 
-    public List<Comment> getAllComments(){
+    public List<Comment> getAllComments(Long ucid, String pass) throws AuthenticationException {
+        User u = userRepo.findByuseridAndPassword(ucid, pass);
+        if (u==null){
+            throw new AuthenticationException("Only registered users can see comments");
+        }
        return commentRepository.findAll();
     }
 
-    public Comment addComments(Comment comment){
+    public Comment addComments(Long ucid, String pass, Comment comment) throws AuthenticationException {
+        User u = userRepo.findByuseridAndPassword(ucid, pass);
+        if (u==null){
+            throw new AuthenticationException("Only registered users can make comments");
+        }
         return commentRepository.save(comment);
     }
 
-    public List<CommentDTO> findCommentForAnimal(Long animalId){
+    public List<CommentDTO> findCommentForAnimal(Long ucid, String pass, Long animalId) throws AuthenticationException {
+        User u = userRepo.findByuseridAndPassword(ucid, pass);
+        if (u==null){
+            throw new AuthenticationException("Only registered users can see comments");
+        }
         List<CommentDTO> result = new ArrayList<>();
         List<Comment> allComments = commentRepository.findAllByanimalid(animalId);
 

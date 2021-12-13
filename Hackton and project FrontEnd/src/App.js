@@ -1,16 +1,12 @@
 import './App.css';
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Login from "./containers/Login";
-import Home from "./containers/Home";
-import UserManagement from "./containers/UserManagement";
+import Login from "./LogInPage/Login";
 import React, { useState } from 'react';
 import HomePageTabs from "./components/homePage/homelPageTabs";
-import Header from "./components/Ali/Header";
+import Header from "./Header";
 
 function App() {
   const [token, setToken] = useState();
-  const [role, setRole] = useState("");
 
   if(!token){
     return <Login setToken={setToken} />

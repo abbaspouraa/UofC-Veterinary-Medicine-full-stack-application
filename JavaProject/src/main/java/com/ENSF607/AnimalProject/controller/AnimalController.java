@@ -19,35 +19,60 @@ public class AnimalController {
 	@Autowired
 	private AnimalService animalService;
 
-//	@CrossOrigin(origins = "http://localhost:8090")
-	@GetMapping
-	public ResponseEntity<List<Animal>> getAllData(){
-		return ResponseEntity.status(HttpStatus.OK).body(animalService.getAllData());
+	@GetMapping("/{ucid}/{pass}")
+	public ResponseEntity<List<Animal>> getAllData(
+			@PathVariable Long ucid,
+			@PathVariable String pass
+	) throws AuthenticationException {
+		return ResponseEntity.status(HttpStatus.OK).body(animalService.getAllData(ucid, pass));
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Animal> getAnimalById(@PathVariable Long id){
-		return ResponseEntity.status(HttpStatus.OK).body((animalService.getAnimalById(id)));
+	@GetMapping("/{ucid}/{pass}/{id}")
+	public ResponseEntity<Animal> getAnimalById(
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@PathVariable Long id
+	) throws AuthenticationException {
+		return ResponseEntity.status(HttpStatus.OK).body((animalService.getAnimalById(ucid, pass, id)));
 	}
 
-	@GetMapping("/getStats/{status}")
-	public ResponseEntity<List<Animal>> getAllByStatus(@PathVariable String status){
-		return ResponseEntity.status(HttpStatus.OK).body(animalService.getAnimalsByStatus(status));
+	@GetMapping("/getRequested/{ucid}/{pass}/{request}")
+	public ResponseEntity<List<Animal>> getRequestedAnimals(
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@PathVariable String request
+	) throws AuthenticationException {
+		return ResponseEntity.status(HttpStatus.OK).body(animalService.getRequestedAnimals(ucid, pass, request));
 	}
 
+	@GetMapping("/getByMe/{ucid}/{pass}")
+	public ResponseEntity<List<Animal>> getRequestedByMe(
+			@PathVariable Long ucid,
+			@PathVariable String pass
+	) throws AuthenticationException {
+		return ResponseEntity.status(HttpStatus.OK).body(animalService.getAllRequestedByMe(ucid, pass));
+	}
 
-	@GetMapping("/{name}")
-	public List<Animal> searchByName(@PathVariable String name){
-		return animalService.searchByName(name);
+	@GetMapping("/{ucid}/{pass}/{name}")
+	public List<Animal> searchByName(
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@PathVariable String name
+	) throws AuthenticationException {
+		return animalService.searchByName(ucid, pass, name);
 	}
 	
-	@PostMapping()
-    public String addAnimal(@RequestBody Animal animal){
-        return animalService.addAnimal(animal);
+	@PostMapping("/{ucid}/{pass}")
+    public String addAnimal(
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@RequestBody Animal animal
+	) throws AuthenticationException {
+        return animalService.addAnimal(ucid, pass, animal);
     }
 	
 	@GetMapping("/{ucid}/{pass}/{id}/{booked}")
-	public ResponseEntity<Animal> updateAnimalStatus(
+	public ResponseEntity<Animal> updateAnimalRequest(
 			@PathVariable Long ucid,
 			@PathVariable String pass,
 			@PathVariable Long id,
@@ -61,9 +86,13 @@ public class AnimalController {
 		));
 	}
 	
-	@DeleteMapping("/{id}")
-    public String deleteAnimal(@PathVariable("id") Long id){
-		return animalService.deleteAnimal(id);
+	@DeleteMapping("/{ucid}/{pass}/{id}")
+    public String deleteAnimal(
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@PathVariable("id") Long id
+	) throws AuthenticationException {
+		return animalService.deleteAnimal(ucid, pass, id);
     }
 	
 	@GetMapping("/{name}/{species}/{sex}")

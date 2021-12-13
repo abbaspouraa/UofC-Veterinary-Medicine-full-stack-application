@@ -6,25 +6,30 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
 import AnimalService from '../service/AnimalService'
 import Button from "@mui/material/Button";
 
-const BookingManagement = () => {
+export default function BookingManagement({token}){
 
     const [animal, setAnimal] = useState([])
 
     useEffect(() => {
-
-        AnimalService.getAllAnimalByStatus("Newly approved").then((Response) => {
+        AnimalService.getRequestedByMe(
+            Number(token.UCID),
+            token.password
+        ).then((Response) => {
             setAnimal(Response.data)
         })
     }, [])
 
-
     const reserveAnimal = (id, approval) => {
         if (id)
-            AnimalService.updateAnimalStatus(id, approval).then((response) => {
+            AnimalService.updateAnimalRequest(
+                Number(token.UCID),
+                token.password,
+                id,
+                approval
+            ).then((response) => {
 
             }).catch(error =>{
                 console.log(error);
@@ -63,8 +68,8 @@ const BookingManagement = () => {
                                 <Button
                                     size="large"
                                     variant="contained"
-                                    onClick={() => reserveAnimal(row.animalid, "Canceled")}
-                                >Cancel booking</Button>
+                                    onClick={() => reserveAnimal(row.animalid, "Available")}
+                                >Cancel Booking</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -73,5 +78,3 @@ const BookingManagement = () => {
         </TableContainer>
     );
 }
-
-export default BookingManagement

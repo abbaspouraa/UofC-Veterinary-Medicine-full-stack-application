@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.net.HttpURLConnection;
 import java.util.List;
 
@@ -19,19 +20,29 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/")
-    public ResponseEntity<Void> addComment(@RequestBody Comment comment) {
-        commentService.addComments(comment);
-        return ResponseEntity.status(HttpURLConnection.HTTP_CREATED).build();
+    @PostMapping("/{ucid}/{pass}")
+    public ResponseEntity<Comment> addComment(
+            @PathVariable Long ucid,
+            @PathVariable String pass,
+            @RequestBody Comment comment
+    ) throws AuthenticationException {
+        return ResponseEntity.status(HttpURLConnection.HTTP_CREATED).body(commentService.addComments(ucid, pass, comment));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Comment>> getAllComments(){
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllComments());
+    @GetMapping("/{ucid}/{pass}")
+    public ResponseEntity<List<Comment>> getAllComments(
+            @PathVariable Long ucid,
+            @PathVariable String pass
+    ) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllComments(ucid, pass));
     }
 
-    @GetMapping("/{animalId}")
-    public ResponseEntity<List<CommentDTO>> getAnimalComments(@PathVariable Long animalId){
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.findCommentForAnimal(animalId));
+    @GetMapping("/{ucid}/{pass}/{animalId}")
+    public ResponseEntity<List<CommentDTO>> getAnimalComments(
+            @PathVariable Long ucid,
+            @PathVariable String pass,
+            @PathVariable Long animalId
+    ) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.findCommentForAnimal(ucid, pass, animalId));
     }
 }
