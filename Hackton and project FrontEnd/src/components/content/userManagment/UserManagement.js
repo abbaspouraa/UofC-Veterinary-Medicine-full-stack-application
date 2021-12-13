@@ -19,6 +19,29 @@ import EditIcon from '@mui/icons-material/Edit';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import SearchIcon from "@mui/icons-material/Search";
 
+import { styled } from '@mui/material/styles';
+import { tableCellClasses } from '@mui/material/TableCell';
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
+
 export default function UserManagement({token}){
     const [search, setSearch] = useState("");
     const [isAddOpen, setIsAddOpen] = useState(false);
@@ -164,30 +187,30 @@ export default function UserManagement({token}){
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell >First Name</TableCell>
-                                <TableCell align="right">Last Name</TableCell>
-                                <TableCell align="right">UCID</TableCell>
-                                <TableCell align="right">Email Address</TableCell>
-                                <TableCell align="right">Role</TableCell>
-                                <TableCell align="right">Blocked</TableCell>
-                                <TableCell align="center">Actions</TableCell>
+                                <StyledTableCell >First Name</StyledTableCell>
+                                <StyledTableCell align="right">Last Name</StyledTableCell>
+                                <StyledTableCell align="right">UCID</StyledTableCell>
+                                <StyledTableCell align="right">Email Address</StyledTableCell>
+                                <StyledTableCell align="right">Role</StyledTableCell>
+                                <StyledTableCell align="right">Blocked</StyledTableCell>
+                                <StyledTableCell align="center">Actions</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {items.map((row) => (
-                                <TableRow
+                                <StyledTableRow
                                     key={row.fname}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                    <TableCell component="th" scope="row">
+                                    <StyledTableCell component="th" scope="row">
                                         {row.fname}
-                                    </TableCell>
-                                    <TableCell align="right">{row.lname}</TableCell>
-                                    <TableCell align="right">{row.userid}</TableCell>
-                                    <TableCell align="right">{row.email}</TableCell>
-                                    <TableCell align="right">{row.role}</TableCell>
-                                    <TableCell align="right">{row.blocked}</TableCell>
-                                    <TableCell align="center">
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">{row.lname}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.userid}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.email}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.role}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.blocked}</StyledTableCell>
+                                    <StyledTableCell align="center">
                                         <Button
                                             size="small"
                                             variant="contained"
@@ -212,8 +235,8 @@ export default function UserManagement({token}){
                                         >Block</Button>
 
 
-                                    </TableCell>
-                                </TableRow>
+                                    </StyledTableCell>
+                                </StyledTableRow>
                             ))}
                         </TableBody>
                     </Table>

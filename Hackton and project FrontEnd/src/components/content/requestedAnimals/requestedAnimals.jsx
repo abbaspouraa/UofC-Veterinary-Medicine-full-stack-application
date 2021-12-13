@@ -12,6 +12,29 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
+import { styled } from '@mui/material/styles';
+import { tableCellClasses } from '@mui/material/TableCell';
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
+
 export default function ListRequestedAnimals({token}) {
 
     const [animal, setAnimal] = useState([])
@@ -94,30 +117,30 @@ export default function ListRequestedAnimals({token}) {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell align="right">Species</TableCell>
-                            <TableCell align="right">Breed</TableCell>
-                            <TableCell align="right">RFID</TableCell>
-                            <TableCell align="right">Status</TableCell>
+                            <StyledTableCell>Name</StyledTableCell>
+                            <StyledTableCell align="right">Species</StyledTableCell>
+                            <StyledTableCell align="right">Breed</StyledTableCell>
+                            <StyledTableCell align="right">RFID</StyledTableCell>
+                            <StyledTableCell align="right">Status</StyledTableCell>
 
-                            <TableCell align="center" >Actions</TableCell>
+                            <StyledTableCell align="center" >Actions</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {animal.map((row) => (
-                            <TableRow
+                            <StyledTableRow
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <StyledTableCell component="th" scope="row">
                                     {row.name}
-                                </TableCell>
-                                <TableCell align="right">{row.species}</TableCell>
-                                <TableCell align="right">{row.breed}</TableCell>
-                                <TableCell align="right">{row.rfid}</TableCell>
-                                <TableCell align="right">{row.status}</TableCell>
+                                </StyledTableCell>
+                                <StyledTableCell align="right">{row.species}</StyledTableCell>
+                                <StyledTableCell align="right">{row.breed}</StyledTableCell>
+                                <StyledTableCell align="right">{row.rfid}</StyledTableCell>
+                                <StyledTableCell align="right">{row.status}</StyledTableCell>
 
-                                {row.request ==="Requested" && <TableCell align="center">
+                                {row.request ==="Requested" && <StyledTableCell align="center">
                                     <Button
                                         size="large"
                                         variant="contained"
@@ -132,8 +155,8 @@ export default function ListRequestedAnimals({token}) {
                                         variant="contained"
                                         onClick={() => reserveAnimal(row.animalid, "Available")}
                                     >Reject</Button>
-                                </TableCell>}
-                            </TableRow>
+                                </StyledTableCell>}
+                            </StyledTableRow>
                         ))}
                     </TableBody>
                 </Table>
