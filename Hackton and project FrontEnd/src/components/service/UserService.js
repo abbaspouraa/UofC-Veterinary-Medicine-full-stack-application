@@ -1,31 +1,31 @@
 import axios from 'axios'
 
-const USER_BASE_REST_API_URL = 'http://localhost:8090/user';
+const USER_BASE_REST_API_URL = 'http://localhost:8090/user/';
 
 class UserService{
 
-    getAllUsers(){
-        return axios.get(USER_BASE_REST_API_URL + '/' + "getAll");
+    getAllUsers(ucid, pass){
+        return axios.get(USER_BASE_REST_API_URL + "getAll/" + ucid + '/' + pass);
     }
 
-    searchUsers(fname, lname, ucid, email, role){
-        return axios.get(USER_BASE_REST_API_URL + '/' + fname + '/' + lname + '/' + ucid + '/' + email + '/' + role)
+    searchUsers(ucid, pass, user){
+        return axios.post(USER_BASE_REST_API_URL + ucid + '/' + pass, user)
     }
 
-    removeUser(ucid){
-        return axios.delete(USER_BASE_REST_API_URL + '/' + ucid)
+    deleteUser(ucid, pass, doomedUCID){
+        return axios.delete(USER_BASE_REST_API_URL + ucid + '/' + pass + '/' + doomedUCID)
     }
 
-    addUser(fname, lname, ucid, email, role, password){
-        return axios.post(USER_BASE_REST_API_URL + '/' + fname + '/' + lname + '/' + ucid + '/' + email + '/' + role + '/' + password)
+    addUser(ucid, pass, user){
+        return axios.post(USER_BASE_REST_API_URL + "addUser/" + ucid + '/' + pass, user)
     }
 
-    blockUser(ucid){
-        return axios.get(USER_BASE_REST_API_URL + '/' + ucid)
+    blockUser(ucid, pass, doomedUcid){
+        return axios.get(USER_BASE_REST_API_URL + ucid + '/' + pass + '/' + doomedUcid)
     }
 
-    editUser(fname, lname, ucid, email, role){
-        return axios.put(USER_BASE_REST_API_URL + '/' + fname + '/' + lname + '/' + ucid + '/' + email + '/' + role)
+    updateUser(ucid, pass, user){
+        return axios.put(USER_BASE_REST_API_URL + "updateUser/"+ ucid + '/' + pass, user)
     }
 }
 

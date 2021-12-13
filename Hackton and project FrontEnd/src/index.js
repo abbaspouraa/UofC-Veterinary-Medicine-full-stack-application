@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import './index.css';
 import reportWebVitals from './reportWebVitals';
-
-import AnimalPage from "./components/amir/animalPage";
 import App from "./App";
 
 
