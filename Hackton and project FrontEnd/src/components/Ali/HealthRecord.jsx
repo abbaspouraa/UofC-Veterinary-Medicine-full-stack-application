@@ -37,7 +37,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }));
 
 
-export default function AnimalHealthRecord({animalId}) {
+export default function AnimalHealthRecord({animalId, token}) {
 
 
     const [ongoingCare, setOngoingCare] = useState([])
@@ -45,11 +45,11 @@ export default function AnimalHealthRecord({animalId}) {
 
     useEffect(() => {
 
-        OngoingCareService.getAnimalCareHistory(animalId).then((Response) => {
+        OngoingCareService.getAnimalCareHistory(token.UCID, token.password,animalId).then((Response) => {
             setOngoingCare(Response.data)
         })
 
-        TreatmentService.getAnimalStatusRecordsByAnimalId(animalId).then((Response) => {
+        TreatmentService.getAnimalStatusRecordsByAnimalId(Number(token.UCID), token.password, animalId).then((Response) => {
             setTreatmentRecords(Response.data)
         })
     }, [])

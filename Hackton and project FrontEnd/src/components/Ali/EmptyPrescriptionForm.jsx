@@ -31,7 +31,7 @@ export default function EmptyPrescriptionForm({statusId, token}) {
     const givePrescription = (e) => {
         e.preventDefault();
 
-        TreatmentService.updateAnimalStatus(statusId, animalStatus).then((response) => {
+        TreatmentService.updateAnimalStatus(Number(token.UCID), token.password, statusId, animalStatus).then((response) => {
         }).catch(r => {console.log(r);})
     }
 
@@ -52,7 +52,7 @@ export default function EmptyPrescriptionForm({statusId, token}) {
 
     useEffect(() => {
         
-        TreatmentService.getAnimalStatusByStatusId(statusId).then((response) =>{
+        TreatmentService.getAnimalStatusByStatusId(Number(token.UCID), token.password, statusId).then((response) =>{
             setCareAttId(response.data.careattid)
             setAnimalId(response.data.animalid)
             setProcessDescription(response.data.processDescription)

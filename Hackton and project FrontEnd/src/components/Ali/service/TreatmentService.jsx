@@ -6,24 +6,24 @@ const TREATMENT_BASE_REST_API_URL = 'http://localhost:8090/treatment/';
 class TreatmentService{
 
 
-    startNewTreatment(treatment){
-            return axios.post(TREATMENT_BASE_REST_API_URL, treatment);
+    startNewTreatment(ucid, pass, treatment){
+            return axios.post(TREATMENT_BASE_REST_API_URL + '/' + ucid + '/' + pass, treatment);
         }
 
-    getAlertingAnimalStatus(stage){
-        return axios.get (TREATMENT_BASE_REST_API_URL + '/'+ 'stage'+ '/' + stage);
+    getAlertingAnimalStatus(ucid, pass, stage){
+        return axios.get (TREATMENT_BASE_REST_API_URL + '/'+ 'stage'+ '/'+ ucid + '/' + pass + '/' + stage);
     }
 
-    getAnimalStatusRecordsByAnimalId(animalid){
-        return axios.get(TREATMENT_BASE_REST_API_URL + '/' + 'record' + '/' + animalid);
+    getAnimalStatusRecordsByAnimalId(ucid, pass, animalid){
+        return axios.get(TREATMENT_BASE_REST_API_URL + '/' + 'record' + '/' + ucid + '/' + pass + '/' + animalid);
     }
 
-    getAnimalStatusByStatusId(statusid){
-        return axios.get(TREATMENT_BASE_REST_API_URL + '/' + statusid);
+    getAnimalStatusByStatusId(ucid, pass, statusid){
+        return axios.get(TREATMENT_BASE_REST_API_URL + '/' + ucid + '/' + pass + '/' + statusid);
     }
 
-    updateAnimalStatus(statusid, animalStatus){
-        return axios.put(TREATMENT_BASE_REST_API_URL + '/' + statusid,animalStatus);
+    updateAnimalStatus(ucid, pass, statusid, animalStatus){
+        return axios.put(TREATMENT_BASE_REST_API_URL + '/' + ucid + '/' + pass + '/' + statusid,animalStatus);
     }
 
     

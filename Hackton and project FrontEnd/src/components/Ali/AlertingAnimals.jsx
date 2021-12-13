@@ -58,7 +58,7 @@ export default function AlertingAnimals({token}) {
 
     useEffect(() => {
 
-        TreatmentService.getAlertingAnimalStatus("Started").then((Response) => {
+        TreatmentService.getAlertingAnimalStatus(Number(token.UCID), token.password ,"Started").then((Response) => {
             setAnimalStatus(Response.data)
         })
     }, [])

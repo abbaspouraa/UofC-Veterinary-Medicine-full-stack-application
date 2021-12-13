@@ -38,7 +38,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }));
 
 
-export default function UnderTreatmentAnimal() {
+export default function UnderTreatmentAnimal({token}) {
 
 
     const [openAlert, setOpenAlert] = React.useState(false);
@@ -59,7 +59,7 @@ export default function UnderTreatmentAnimal() {
 
     useEffect(() => {
 
-        TreatmentService.getAlertingAnimalStatus("Under Treatment").then((Response) => {
+        TreatmentService.getAlertingAnimalStatus(Number(token.UCID), token.password, "Under Treatment").then((Response) => {
             setAnimalStatus(Response.data)
         })
     }, [])
@@ -105,7 +105,7 @@ export default function UnderTreatmentAnimal() {
                                         content={<>
                                             <h3>Prescription Form</h3>
                                             <div className="add-user">
-                                                <FinalizeTreatment statusId={chosenAnimalStatus.statusid} />
+                                                <FinalizeTreatment statusId={chosenAnimalStatus.statusid} token= {token} />
                                             </div>
                                             <div>
                                                 <Stack spacing={2} direction="row">

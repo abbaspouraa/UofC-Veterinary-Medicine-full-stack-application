@@ -32,18 +32,20 @@ export default function TreatmentProcess({animalId, token}) {
     const startTreatment = (e) => {
         e.preventDefault();
 
-        TreatmentService.startNewTreatment({
-        
-            stage: 'started',
-            careattid: token.UCID,
-            animalid: animalId,
-            processDescription: briefDescription,
-            temperature: temp,
-            weight: weight,
-            heartRate: heartRate,
-            symptoms: symptoms,
-            diagnoseDrug: diagnoseDrug,
-            vetid: vetid
+        TreatmentService.startNewTreatment(
+            Number(token.UCID),
+            token.password,
+            {
+                stage: 'started',
+                careattid: token.UCID,
+                animalid: animalId,
+                processDescription: briefDescription,
+                temperature: temp,
+                weight: weight,
+                heartRate: heartRate,
+                symptoms: symptoms,
+                diagnoseDrug: diagnoseDrug,
+                vetid: vetid
         }).then(r => {console.log(r);})
     }
 

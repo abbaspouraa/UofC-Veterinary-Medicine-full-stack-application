@@ -29,15 +29,17 @@ export default function OngoingCareAndVaccination({animalId, token}) {
     const startCareOrVaccination = (e) => {
         e.preventDefault();
 
-        OngoingCareService.startNewCare({
-        
-            careAttId: token.UCID,
-            animalid: animalId,
-            processDescription: briefDescription,
-            weight: weight,
-            drug: drug,
-            nextDue: nextDue,
-            note: note
+        OngoingCareService.startNewCare(
+            Number(token.UCID),
+            token.password,
+            {
+                careAttId: token.UCID,
+                animalid: animalId,
+                processDescription: briefDescription,
+                weight: weight,
+                drug: drug,
+                nextDue: nextDue,
+                note: note
         }).then(r => {console.log(r);})
     }
 

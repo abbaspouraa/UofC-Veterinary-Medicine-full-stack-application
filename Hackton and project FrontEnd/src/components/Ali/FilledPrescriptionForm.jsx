@@ -18,7 +18,7 @@ import TreatmentService from './service/TreatmentService';
 import AnimalService from '../service/AnimalService';
 
 
-export default function FinalizeTreatment({statusId}) {
+export default function FinalizeTreatment({statusId, token}) {
 
     const [statusid, setStatusIs]= useState(null);
     const [careattid, setCareAttId] = useState('');
@@ -46,7 +46,7 @@ export default function FinalizeTreatment({statusId}) {
 
     useEffect(() => {
         
-        TreatmentService.getAnimalStatusByStatusId(statusId).then((response) =>{
+        TreatmentService.getAnimalStatusByStatusId(Number(token.UCID), token.password, statusId).then((response) =>{
             setCareAttId(response.data.careattid)
             setStage(response.data.stage)
             setAnimalId(response.data.animalid)
@@ -65,7 +65,7 @@ export default function FinalizeTreatment({statusId}) {
     const finalizePrescription = (e) => {
         e.preventDefault();
 
-        TreatmentService.updateAnimalStatus(statusId, animalStatus).then((response) => {
+        TreatmentService.updateAnimalStatus(Number(token.UCID), token.password, statusId, animalStatus).then((response) => {
         }).catch(r => {console.log(r);})
     }
 
