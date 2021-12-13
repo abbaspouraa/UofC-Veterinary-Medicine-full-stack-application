@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -23,58 +24,44 @@ public class AnimalStatusController {
 //        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByAnimalId(id));
 //    }
 
-    @GetMapping("/stage/{stage}")
-    public ResponseEntity<List<AnimalStatus>> getAllAnimalStatusByStage(@PathVariable String stage){
-        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByStage(stage));
+    @GetMapping("/stage/{ucid}/{pass}/{stage}")
+    public ResponseEntity<List<AnimalStatus>> getAllAnimalStatusByStage(@PathVariable Long ucid,
+                                                                        @PathVariable String pass,
+                                                                        @PathVariable String stage) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByStage(ucid,pass,stage));
     }
 
-    @GetMapping("/record/{animalid}")
-    public ResponseEntity<List<AnimalStatus>> getAnimalStatusByAnimalId(@PathVariable Long animalid){
-        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByanimalid(animalid));
-    }
-
-//    @GetMapping("/{symptoms}")
-//    public ResponseEntity<AnimalStatus> getAnimalStatusBysymptoms(@PathVariable String symptoms){
-//        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusBysymptoms(symptoms));
-//    }
-
-    @GetMapping("/{statusid}")
-    public ResponseEntity<AnimalStatus> getAnimalStatusByStatusId(@PathVariable Long statusid){
-        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByStatusId(statusid));
+    @GetMapping("/record/{ucid}/{pass}/{animalid}")
+    public ResponseEntity<List<AnimalStatus>> getAnimalStatusByAnimalId(@PathVariable Long ucid,
+                                                                        @PathVariable String pass,
+                                                                        @PathVariable Long animalid) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByanimalid(ucid, pass, animalid));
     }
 
 
-    @PutMapping("/{statusid}")
-    public ResponseEntity<AnimalStatus> updateAnimalStatus(@PathVariable Long statusid,
-                                                           @RequestBody AnimalStatus animalStatus){
-        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.updateAnimalStatus(statusid,animalStatus));
+
+    @GetMapping("/{ucid}/{pass}/{statusid}")
+    public ResponseEntity<AnimalStatus> getAnimalStatusByStatusId(@PathVariable Long ucid,
+                                                                  @PathVariable String pass,
+                                                                  @PathVariable Long statusid) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAnimalStatusByStatusId(ucid, pass, statusid));
     }
 
 
-    @PostMapping("/")
-    public ResponseEntity<AnimalStatus> addAnimalStatus (@RequestBody AnimalStatus animalStatus){
-        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.addAnimalStatus(animalStatus));
+    @PutMapping("/{ucid}/{pass}/{statusid}")
+    public ResponseEntity<AnimalStatus> updateAnimalStatus(@PathVariable Long ucid,
+                                                           @PathVariable String pass,
+                                                           @PathVariable Long statusid,
+                                                           @RequestBody AnimalStatus animalStatus) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.updateAnimalStatus(ucid,pass,statusid,animalStatus));
     }
 
-//    @PostMapping("/{careattid}/{animalName}/{date}/{processDescription}/{temperature}/{weight}/" +
-//            "{heartRate}/{symptoms}/{diagnoseDrug}/{vetid}")
-//    public ResponseEntity<Void> addAnimalStatus(@PathVariable Integer careattid,
-//                                                @PathVariable String animalName,
-//                                                @PathVariable String date,
-//                                                @PathVariable String processDescription,
-//                                                @PathVariable Integer temperature,
-//                                                @PathVariable Integer weight,
-//                                                @PathVariable Integer heartRate,
-//                                                @PathVariable String symptoms,
-//                                                @PathVariable String diagnoseDrug,
-//                                                @PathVariable Integer vetid){
-//        animalStatusService.addAnimalStatus(careattid,animalName,date,processDescription,temperature,weight,
-//                heartRate,symptoms,diagnoseDrug,vetid);
-//        return ResponseEntity.status(HttpStatus.OK).build();
-//    }
 
-//    @GetMapping()
-//    public ResponseEntity<List<AnimalStatus>> getAllAnimalStatus(){
-//        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.getAllAnimalStatus());
-//    }
+    @PostMapping("/{ucid}/{pass}")
+    public ResponseEntity<AnimalStatus> addAnimalStatus (@PathVariable Long ucid,
+                                                         @PathVariable String pass,
+                                                         @RequestBody AnimalStatus animalStatus) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(animalStatusService.addAnimalStatus(ucid, pass, animalStatus));
+    }
+
 }

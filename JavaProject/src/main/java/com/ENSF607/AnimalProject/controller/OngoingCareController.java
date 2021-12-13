@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -17,14 +18,18 @@ public class OngoingCareController{
 	@Autowired
 	OngoingCareService ongoingCareService;
 
-	@GetMapping("/{animalid}")
-	public ResponseEntity<List<OngoingCare>> getOngoingCareByAnimalId(@PathVariable Long animalid){
-		return ResponseEntity.status(HttpStatus.OK).body(ongoingCareService.searchByanimalId(animalid));
+	@GetMapping("/{ucid}/{pass}/{animalid}")
+	public ResponseEntity<List<OngoingCare>> getOngoingCareByAnimalId(@PathVariable Long ucid,
+																	  @PathVariable String pass,
+																	  @PathVariable Long animalid) throws AuthenticationException {
+		return ResponseEntity.status(HttpStatus.OK).body(ongoingCareService.getOngoingCareByanimalId(ucid,pass,animalid));
 	}
 
-	@PostMapping("/")
-    public ResponseEntity<OngoingCare> addOngoingCare(@RequestBody OngoingCare care){
-        return ResponseEntity.status(HttpStatus.OK).body(ongoingCareService.addOngoingCare(care));
+	@PostMapping("/{ucid}/{pass}")
+    public ResponseEntity<OngoingCare> addOngoingCare(@PathVariable Long ucid,
+													  @PathVariable String pass,
+													  @RequestBody OngoingCare care) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(ongoingCareService.addOngoingCare(ucid,pass,care));
     }
 
 }
