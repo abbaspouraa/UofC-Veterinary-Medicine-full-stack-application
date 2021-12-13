@@ -52,8 +52,8 @@ export default function AddEditUser({user, token, addUser}) {
             label: 'Care Attendant',
         },
         {
-            value: 'Teaching Technician',
-            label: 'Teaching Technician',
+            value: 'Health Technician',
+            label: 'Health Technician',
         },
         {
             value: 'Student',

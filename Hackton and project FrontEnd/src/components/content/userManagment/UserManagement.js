@@ -122,7 +122,7 @@ export default function UserManagement({token}){
         })
     }
 
-    const removeUser = () => {
+    const removeUser = (ucid) => {
         UserService.deleteUser(
             Number(token.UCID),
             token.password,
@@ -133,7 +133,7 @@ export default function UserManagement({token}){
         getUsers();
     }
 
-    const blockUser = () =>{
+    const blockUser = (ucid) =>{
         UserService.blockUser(
             Number(token.UCID),
             token.password,
@@ -142,7 +142,6 @@ export default function UserManagement({token}){
             console.log(error);
         })
     }
-
 
     return(
         <div className='UserManagement'>

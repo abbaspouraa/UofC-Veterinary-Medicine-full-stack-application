@@ -8,9 +8,9 @@ import SearchAnimal from "./animal/searchAnimal";
 import ListRequestedAnimals from "../content/requestedAnimals/requestedAnimals";
 import BookingManagement from "../content/ongoingCare/onGoingRequests";
 import UserManagement from '../content/userManagment/UserManagement';
-import Alerts from '../content/alerts/Alerts';
-import Treatments from '../content/treatments/Treatments';
 import "./PageContents.css";
+import AlertingAnimals from "../content/treatments/AlertingAnimals";
+import UnderTreatmentAnimal from "../content/treatments/UnderTreatmentAnimal";
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -59,12 +59,24 @@ export default function HomePageTabs({token}) {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Animal" {...a11yProps(0)} />
-                    <Tab label="Alerts" {...a11yProps(1)} />
-                    <Tab label="Treatments" {...a11yProps(2)} />
-                    {token.token === "Admin" && <Tab label="Requested Animals" {...a11yProps(3)} />}
-                    {token.token ==="Instructor" && <Tab label="Booking Management" {...a11yProps(3)} />}
+
+                    {/*Admin tabs*/}
+                    {token.token === "Admin" && <Tab label="Requested Animals" {...a11yProps(1)} />}
+                    {token.token === "Admin" && <Tab label="Alerting Animals" {...a11yProps(2)} />}
+                    {token.token === "Admin" && <Tab label="Under Treatment" {...a11yProps(3)} />}
                     {token.token === "Admin" && <Tab label="User Management" {...a11yProps(4)} />}
-                    {token.token === "Instructor" && <Tab label="User Management" {...a11yProps(4)} />}
+
+                    {/*Instructor*/}
+                    {token.token ==="Instructor" && <Tab label="Booking Management" {...a11yProps(1)} />}
+                    {token.token === "Instructor" && <Tab label="User Management" {...a11yProps(2)} />}
+
+                    {/*Care att tabs*/}
+                    {token.token === "Care Attendant" && <Tab label="Requested Animals" {...a11yProps(1)} />}
+                    {token.token === "Care Attendant" && <Tab label="Under Treatment" {...a11yProps(2)} />}
+
+                    {/*Health techs tabs*/}
+                    {token.token === "Health Technician" && <Tab label="Alerting Animals" {...a11yProps(1)} />}
+                    {token.token === "Health Technician" && <Tab label="Under Treatment" {...a11yProps(2)} />}
                 </Tabs>
             </Box>
 
@@ -74,28 +86,55 @@ export default function HomePageTabs({token}) {
             </TabPanel>
 
 
-            <TabPanel value={value} index={1}>
-                <Alerts />
-            </TabPanel>
+            {/*Admin*/}
 
-            <TabPanel value={value} index={2}>
-                <Treatments />
-            </TabPanel>
-
-            {token.token === "Admin" && <TabPanel value={value} index={3}>
+            {token.token === "Admin" && <TabPanel value={value} index={1}>
                 <ListRequestedAnimals token={token} />
             </TabPanel>}
 
-            {token.token === "Instructor" && <TabPanel value={value} index={3}>
-                <BookingManagement token={token} />
+            {token.token === "Admin" && <TabPanel value={value} index={2}>
+                <AlertingAnimals token={token} />
+            </TabPanel>}
+
+            {token.token === "Admin" && <TabPanel value={value} index={3}>
+                <UnderTreatmentAnimal token={token} />
             </TabPanel>}
 
             {token.token === "Admin" && <TabPanel value={value} index={4}>
                 <UserManagement token={token}/>
             </TabPanel>}
 
-            {token.token === "Instructor" && <TabPanel value={value} index={4}>
+
+
+            {/*Instructor*/}
+
+            {token.token === "Instructor" && <TabPanel value={value} index={1}>
+                <BookingManagement token={token} />
+            </TabPanel>}
+
+            {token.token === "Instructor" && <TabPanel value={value} index={2}>
                 <UserManagement token={token}/>
+            </TabPanel>}
+
+
+
+            {/*Care att*/}
+
+            {token.token === "Care Attendant" &&  <TabPanel value={value} index={1}>
+                <ListRequestedAnimals token={token} />
+            </TabPanel>}
+
+            {token.token === "Care Attendant" &&  <TabPanel value={value} index={2}>
+                <UnderTreatmentAnimal token={token} />
+            </TabPanel>}
+
+            {/*Health techs*/}
+            {token.token === "Health Technician" &&  <TabPanel value={value} index={1}>
+                <AlertingAnimals token={token} />
+            </TabPanel>}
+
+            {token.token === "Health Technician" &&  <TabPanel value={value} index={2}>
+                <UnderTreatmentAnimal token={token} />
             </TabPanel>}
 
         </Box>

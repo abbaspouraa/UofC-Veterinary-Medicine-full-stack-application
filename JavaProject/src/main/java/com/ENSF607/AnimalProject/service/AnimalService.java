@@ -74,6 +74,23 @@ public class AnimalService {
         return "Successfully added: Animal " + animal.getAnimalid();
     }
 
+	public Animal updateAnimalStatus(Long ucid, String pass, Long id, String status) throws NotFoundException, AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null || !(u.getRole().equals("Care Attendant") ||
+						u.getRole().equals("Admin") ||
+						u.getRole().equals("Health Technician"))){
+			throw new AuthenticationException("Only Admins, Care Attendants, and Health Technician can change stats of animal");
+		}
+
+		Animal theAnimal = animalRepository.findByanimalid(id);
+		if (theAnimal == null) {
+			throw new NotFoundException("Such animal does not exist!");
+		}
+
+		theAnimal.setStatus(status); // updating status
+		return animalRepository.save(theAnimal);
+	}
+
 	/**
 	 * Request an animal
 	 * @param UCID ucid of the user who calls this API

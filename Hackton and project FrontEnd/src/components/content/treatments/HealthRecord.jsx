@@ -6,12 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import TreatmentService from "./service/TreatmentService";
+import TreatmentService from "../../service/TreatmentService";
 
 //added for style
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
-import OngoingCareService from "./service/OngoingCareService";
+import OngoingCareService from "../../service/OngoingCareService";
 import { Box } from "@mui/system";
 
 

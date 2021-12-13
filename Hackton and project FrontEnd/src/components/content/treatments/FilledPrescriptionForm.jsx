@@ -14,8 +14,8 @@ import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 // import FormHelperText from '@mui/material/FormHelperText';
 import Box from '@mui/material/Box';
-import TreatmentService from './service/TreatmentService';
-import AnimalService from '../service/AnimalService';
+import TreatmentService from '../../service/TreatmentService';
+import AnimalService from '../../service/AnimalService';
 
 
 export default function FinalizeTreatment({statusId, token}) {
@@ -85,7 +85,12 @@ export default function FinalizeTreatment({statusId, token}) {
     //  To update animal status to Healthy
     const updateAnimalToHealthy = (e) => {
         if (animalid)
-            AnimalService.updateAnimalStatus(animalid, stage).then((response) => {
+            AnimalService.updateAnimalStatus(
+                Number(token.UCID),
+                token.password,
+                animalid,
+                stage
+            ).then((response) => {
 
         }).catch(error =>{
             console.log(error);
@@ -97,15 +102,14 @@ export default function FinalizeTreatment({statusId, token}) {
         <Box
             component="form"
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                '& .MuiTextField-root': { m: 1, width: '45ch' },
             }}
             noValidate
             autoComplete="off"
         >
 
-            <h1>test: {statusId}</h1>
 
-
+            <div>
             <TextField
                 id="outlined-select-currency"
                 select
@@ -120,32 +124,47 @@ export default function FinalizeTreatment({statusId, token}) {
                     </MenuItem>
                 ))}
             </TextField>
-
+            </div>
+            <div>
             <TextField disabled id="outlined-disabled" label="Care Attendent ID" variant="outlined" value={careattid}
                             onChange={(e) => setCareAttId(e.target.value)}  />
 
-
+            </div>
+            <div>
             <TextField disabled id="outlined-disabled" label="Animal ID" variant="outlined" value={animalid}
                             onChange={(e) => setAnimalId(e.target.value)}  />
-            
+            </div>
+            <div>
             <TextField id="outlined-multiline-static" label="Problem Description" variant="outlined" multiline maxRows={4} value={processDescription}
                             onChange={(e) => setProcessDescription(e.target.value)} />
+            </div>
+            <div>
             <TextField id="outlined-basic" label="Temperature" variant="outlined" value={temperature}
                             onChange={(e) => setTemperature(e.target.value)} />
+            </div>
+            <div>
             <TextField disabled id="outlined-disabled" label="Weight" variant="outlined" value={weight}
                             onChange={(e) => setWeight(e.target.value)} />
+            </div>
+            <div>
             <TextField id="outlined-basic" label="Heart Rate" variant="outlined" value={heartRate}
                             onChange={(e) => setHeartRate(e.target.value)} />
+            </div>
+            <div>
             <TextField id="outlined-multiline-static" label="Symptoms" variant="outlined" multiline 
                     maxRows={4} value={symptoms}
                             onChange={(e) => setSymptoms(e.target.value)} />
 
+            </div>
+            <div>
             <TextField  id="outlined-basic" label="Diagnosed Drug" helperText="please fill this part before submiting" multiline  maxRows={4}
                         variant="outlined" value={diagnoseDrug}
                             onChange={(e) => setDiagnoseDrug(e.target.value)} />
+            </div>
+            <div>
             <TextField disabled id="outlined-disabled" label="Health Tech. ID" variant="outlined" value={vetid}
                             onChange={(e) => setVetId(e.target.value)} />
-
+            </div>
             <Button align="center" size="small" variant="contained"
                         onClick={(e) => [finalizePrescription(e), updateAnimalToHealthy(e)]}
             >Submit The Prescription</Button>

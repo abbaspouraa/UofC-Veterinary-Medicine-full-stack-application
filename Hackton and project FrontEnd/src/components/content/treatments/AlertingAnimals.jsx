@@ -6,10 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import TreatmentService from "./service/TreatmentService";
+import TreatmentService from "../../service/TreatmentService";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import AnimalPopup from "../amir/AnimalPopup";
+import AnimalPopup from "../../homePage/animal/animalProfile/AnimalPopup";
 import EmptyPrescriptionForm from "./EmptyPrescriptionForm";
 //added for style
 import { styled } from '@mui/material/styles';

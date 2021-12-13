@@ -85,6 +85,16 @@ public class AnimalController {
 				booked
 		));
 	}
+
+	@GetMapping("/stat/{ucid}/{pass}/{id}/{status}")
+	public ResponseEntity<Animal> updateAnimalStatus(
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@PathVariable Long id,
+			@PathVariable String status
+	) throws NotFoundException, AuthenticationException {
+		return  ResponseEntity.status(HttpStatus.OK).body(animalService.updateAnimalStatus(ucid, pass, id, status));
+	}
 	
 	@DeleteMapping("/{ucid}/{pass}/{id}")
     public String deleteAnimal(

@@ -3,8 +3,8 @@ import "./AnimalProfilePopup.css"
 
 const AnimalPopup = props => {
     return (
-        <div className="popup-box">
-            <div className="box">
+        <div className="animal-popup-box">
+            <div className="animal-box">
                 {props.content}
             </div>
         </div>

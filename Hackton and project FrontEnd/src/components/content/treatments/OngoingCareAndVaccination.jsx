@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 // import TableRow from '@mui/material/TableRow';
 // import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import OngoingCareService from './service/OngoingCareService';
+import OngoingCareService from '../../service/OngoingCareService';
 
 
 
@@ -59,31 +59,36 @@ export default function OngoingCareAndVaccination({animalId, token}) {
 
             <h3 text-align ='center'>Checkup Form</h3>
 
-
-            <TextField disabled id="outlined-disabled" label="Care Attendent ID" variant="outlined" value={careAttId}
-                            onChange={(e) => setCareAttId(e.target.value)}  />
-
-
-            <TextField disabled id="outlined-disabled" label="Animal ID" variant="outlined" value={animalid}
-                            onChange={(e) => setAnimalId(e.target.value)}  />
-
+            <div>
+            <TextField disabled id="outlined-disabled" label="Care Attendent ID" variant="outlined" value={careAttId} fullWidth
+                       onChange={(e) => setCareAttId(e.target.value)}  />
+            </div>
+            <div>
+            <TextField disabled id="outlined-disabled" label="Animal ID" variant="outlined" value={animalid} fullWidth
+                       onChange={(e) => setAnimalId(e.target.value)}  />
+            </div>
+            <div>
             <TextField  required id="outlined-error" label="Process Description" helperText="please fill this part before submiting" variant="outlined" multiline 
-                    maxRows={4} value={briefDescription}
-                            onChange={(e) => setBriefDescription(e.target.value)} />
-            
-            <TextField id="outlined-basic" label="Weight" variant="outlined" value={weight}
-                            onChange={(e) => setWeight(e.target.value)} />
-           
+                    maxRows={4} value={briefDescription} fullWidth
+                        onChange={(e) => setBriefDescription(e.target.value)} />
+            </div>
+            <div>
+            <TextField id="outlined-basic" label="Weight" variant="outlined" value={weight} fullWidth
+                       onChange={(e) => setWeight(e.target.value)} />
+           </div>
+            <div>
            <TextField required id="outlined-error" label="Drug" helperText="please fill this part before submiting" multiline  maxRows={4}
-                        variant="outlined" value={drug}
-                            onChange={(e) => setDrug(e.target.value)} />
-
-            <TextField id="outlined-basic" label="Next Due" variant="outlined" value={nextDue}
-                            onChange={(e) => setNextDue(e.target.value)} />
-
+                        variant="outlined" value={drug} fullWidth
+                      onChange={(e) => setDrug(e.target.value)} />
+            </div>
+            <div>
+            <TextField id="outlined-basic" label="Next Due" variant="outlined" value={nextDue} fullWidth
+                       onChange={(e) => setNextDue(e.target.value)} />
+            </div>
+            <div>
             <TextField id="outlined-basic" label="Notes" multiline  maxRows={4} variant="outlined" value={note}
-                            onChange={(e) => setNote(e.target.value)} />                
-
+                       fullWidth onChange={(e) => setNote(e.target.value)} />
+            </div>
             <Button size="small" variant="contained"
                         onClick={(e) => startCareOrVaccination(e)}
             >Submit</Button>

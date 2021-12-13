@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
-// import Stack from '@mui/material/Stack';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell, {tableCellClasses} from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TableRow from '@mui/material/TableRow';
-// import Paper from '@mui/material/Paper';
-// import * as React from 'react';
 import Box from '@mui/material/Box';
-import TreatmentService from './service/TreatmentService';
+import TreatmentService from '../../service/TreatmentService';
 
 //For changing animal status
-import AnimalService from '../service/AnimalService';
+import AnimalService from '../../service/AnimalService';
 
 export default function TreatmentProcess({animalId, token}) {
 
@@ -53,7 +44,12 @@ export default function TreatmentProcess({animalId, token}) {
     //  To update animal status to Sick
     const updateAnimalToSick = (e) => {
         if (animalId)
-            AnimalService.updateAnimalStatus(animalId, "Under Treatment").then((response) => {
+            AnimalService.updateAnimalStatus(
+                Number(token.UCID),
+                token.password,
+                animalId,
+                "Under Treatment"
+            ).then((response) => {
 
         }).catch(error =>{
             console.log(error);
@@ -73,25 +69,39 @@ export default function TreatmentProcess({animalId, token}) {
 
            
             <h3>---  To be filled By Care Att. --- </h3>
-            <TextField disabled id="outlined-disabled" label="Care Attendent ID" variant="outlined" value={careattid}
-                            onChange={(e) => setCareAttId(e.target.value)}  />
 
-            <TextField disabled id="outlined-disabled" label="Animal ID" variant="outlined" value={animalid}
-                            onChange={(e) => setAnimalId(e.target.value)}  />
-           
-            <TextField  required id="outlined-error" label="Problem Description" helperText="please fill this part before submiting" variant="outlined" multiline 
+
+            <div>
+            <TextField disabled label="Care Attendent ID" variant="outlined" value={careattid} fullWidth
+                       id="fullWidth"
+                       onChange={(e) => setCareAttId(e.target.value)}  />
+            </div>
+            <div>
+            <TextField disabled id="fullWidth"  label="Animal ID" variant="outlined" value={animalid} fullWidth
+                       onChange={(e) => setAnimalId(e.target.value)}  />
+            </div>
+            <div>
+            <TextField  required id="outlined-error" label="Problem Description" helperText="please fill this part before submiting" variant="outlined" multiline fullWidth
                     maxRows={4} value={briefDescription}
-                            onChange={(e) => setBriefDescription(e.target.value)} />
-            <TextField id="outlined-basic" label="Temperature" variant="outlined" value={temp}
+            onChange={(e) => setBriefDescription(e.target.value)} />
+            </div>
+            <div>
+            <TextField id="outlined-basic" label="Temperature" variant="outlined" value={temp} fullWidth
                             onChange={(e) => setTemp(e.target.value)} />
-            <TextField id="outlined-basic" label="Weight" variant="outlined" value={weight}
+            </div>
+            <div>
+            <TextField id="outlined-basic" label="Weight" variant="outlined" value={weight} fullWidth
                             onChange={(e) => setWeight(e.target.value)} />
-            <TextField id="outlined-basic" label="Heart Rate" variant="outlined" value={heartRate}
+            </div>
+            <div>
+            <TextField id="outlined-basic" label="Heart Rate" variant="outlined" value={heartRate} fullWidth
                             onChange={(e) => setHeartRate(e.target.value)} />
-            <TextField required id="outlined-error" id="outlined-multiline-static" label="Symptoms" helperText="please fill this part before submiting" variant="outlined" multiline 
+            </div>
+            <div>
+            <TextField required id="outlined-error" id="outlined-multiline-static" label="Symptoms" helperText="please fill this part before submiting" variant="outlined" multiline  fullWidth
                     maxRows={4} value={symptoms}
-                            onChange={(e) => setSymptoms(e.target.value)} />
-
+            onChange={(e) => setSymptoms(e.target.value)} />
+            </div>
             <Button size="small" variant="contained"
                         onClick={(e) => [startTreatment(e), updateAnimalToSick(e)]}
             >Submit</Button>
