@@ -8,7 +8,6 @@ import java.util.List;
 
 //@Component
 @Repository
-public interface OngoingCareRepository extends JpaRepository<OngoingCare, Integer>{
-
-	public List<OngoingCare> findByanimalid(Integer animalId);
+public interface OngoingCareRepository extends JpaRepository<OngoingCare, Long>{
+    List<OngoingCare> findByanimalid(Long animalid);
 }
