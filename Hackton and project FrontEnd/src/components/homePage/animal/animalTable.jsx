@@ -12,6 +12,8 @@ import * as React from "react";
 import AnimalService from "../../service/AnimalService";
 import AnimalTabs from "./animalProfile/animalTabs";
 import {useState} from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PetsIcon from '@mui/icons-material/Pets';
 
 
 export default function AnimalTable({items, token}) {
@@ -93,6 +95,7 @@ export default function AnimalTable({items, token}) {
                                     size="small"
                                     variant="contained"
                                     onClick={(e) => handleClickViewAnimal(e, row)}
+                                    startIcon={<PetsIcon />}
                                 >Profile</Button>
                             </TableCell>
 
@@ -110,6 +113,7 @@ export default function AnimalTable({items, token}) {
                                 size="small"
                                 variant="contained"
                                 onClick={() => deleteAnimal(row.animalid)}
+                                startIcon={<DeleteIcon />}
                             >Delete</Button>
                             </TableCell>}
 

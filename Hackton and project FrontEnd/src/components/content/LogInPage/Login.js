@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import KeyIcon from '@mui/icons-material/Key';
 
 export default function Login({ setToken }){
     const [username, setUsername] = useState("");
@@ -32,10 +33,6 @@ export default function Login({ setToken }){
         });
     }
 
-    function validate(){
-        return username.length > 0 && password.length > 0;
-    }
-
     return (
             <div className="logInBackground">
                 <div className="loginBox">
@@ -56,6 +53,7 @@ export default function Login({ setToken }){
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         />
+                        {"\t"}
                         <TextField
                             className="TextBox"
                             required
@@ -67,7 +65,12 @@ export default function Login({ setToken }){
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <br></br>
-                        <Button className="loginButton" variant="contained" type='submit'>Sign in</Button>
+                        <Button
+                            size="large"
+                            variant="contained"
+                            type='submit'
+                            endIcon={<KeyIcon />}
+                        >Sign in</Button>
                     </form>
                 </div>
             </div>

@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.default-background{
+  /*background-image: linear-gradient(180deg, rgba(149, 119, 229, 0.27), rgb(43, 73, 175), rgb(255, 255, 255));*/
+  background: url("spyhill.jpg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}

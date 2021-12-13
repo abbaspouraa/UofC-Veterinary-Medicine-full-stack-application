@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import AnimalService from '../service/AnimalService'
+import AnimalService from '../../service/AnimalService'
 import Button from "@mui/material/Button";
 
 export default function BookingManagement({token}){
@@ -20,7 +20,7 @@ export default function BookingManagement({token}){
         ).then((Response) => {
             setAnimal(Response.data)
         })
-    }, [])
+    })
 
     const reserveAnimal = (id, approval) => {
         if (id)

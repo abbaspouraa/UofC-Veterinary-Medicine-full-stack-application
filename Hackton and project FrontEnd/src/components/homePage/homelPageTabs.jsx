@@ -5,11 +5,12 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import SearchAnimal from "./animal/searchAnimal";
-import ListRequestedAnimals from "./requestedAnimals/requestedAnimals";
-import BookingManagement from "../Ali/onGoingRequests";
-import UserManagement from './userManagment/UserManagement';
-import Alerts from './alerts/Alerts';
-import Treatments from './treatments/Treatments';
+import ListRequestedAnimals from "../content/requestedAnimals/requestedAnimals";
+import BookingManagement from "../content/ongoingCare/onGoingRequests";
+import UserManagement from '../content/userManagment/UserManagement';
+import Alerts from '../content/alerts/Alerts';
+import Treatments from '../content/treatments/Treatments';
+import "./PageContents.css";
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -54,7 +55,7 @@ export default function HomePageTabs({token}) {
     // {token.token ==="Instructor" &&  <Tab label="Booking Management" {...a11yProps(4)} />}
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%' }}  className="search-page">
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Animal" {...a11yProps(0)} />

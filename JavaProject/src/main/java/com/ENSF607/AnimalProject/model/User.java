@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table(name="User")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private Long id;
+    @Id
     @Column(unique = true)
     private Long userid;
     private String password;
@@ -66,14 +66,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
 	public String getBlocked() {

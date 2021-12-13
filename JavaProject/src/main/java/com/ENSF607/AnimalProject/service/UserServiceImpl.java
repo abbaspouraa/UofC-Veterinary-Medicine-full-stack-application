@@ -33,7 +33,7 @@ public class UserServiceImpl{
 
 		String fname = user.getfname();
 		String lname = user.getlname();
-		String uucid = user.getUserid() +"";
+        Long uucid = user.getUserid();
 		String email = user.getEmail();
 		String role = user.getRole();
 		return userRepo.searchUsers(fname,lname, uucid,email,role);

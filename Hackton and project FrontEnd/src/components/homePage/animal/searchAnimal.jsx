@@ -6,9 +6,11 @@ import {useState} from "react";
 import AnimalService from "../../service/AnimalService";
 import Stack from "@mui/material/Stack";
 import AnimalPopup from "./animalProfile/AnimalPopup";
-import NewAnimalAdd from "./newAnimalAdd";
 import AnimalTable from "./animalTable";
-
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import SearchIcon from '@mui/icons-material/Search';
+import "../PageContents.css";
+import AddEditAnimal from "./animalProfile/addEditAnimal";
 
 export default function SearchAnimal({token}) {
 
@@ -95,6 +97,7 @@ export default function SearchAnimal({token}) {
                     size="large"
                     variant="contained"
                     onClick={() => searchAnimals()}
+                    endIcon={<SearchIcon />}
                 >Search</Button>
             </Box>
 
@@ -109,6 +112,7 @@ export default function SearchAnimal({token}) {
                 size="large"
                 variant="contained"
                 onClick={handleClickAddAnimal}
+                endIcon={<ControlPointIcon />}
             >Add a new animal</Button>}
 
             {token.token === "Care Attendant" && <
@@ -116,6 +120,7 @@ export default function SearchAnimal({token}) {
                 size="large"
                 variant="contained"
                 onClick={handleClickAddAnimal}
+                endIcon={<ControlPointIcon />}
             >Add a new animal</Button>}
 
 
@@ -123,7 +128,10 @@ export default function SearchAnimal({token}) {
                 content={<>
                     <h3>New Animal</h3>
                     <div className="add-user">
-                        <NewAnimalAdd token={token} />
+                        <AddEditAnimal
+                            token={token}
+                            animal={{}}
+                        />
                     </div>
                     <div>
                         <Stack spacing={1} direction="row">

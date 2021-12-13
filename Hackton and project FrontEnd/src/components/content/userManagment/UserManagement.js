@@ -1,5 +1,5 @@
 import "./UserManagement.css";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
@@ -13,16 +13,21 @@ import Paper from '@mui/material/Paper';
 import Popup from './Popup';
 import UserService from "../../service/UserService";
 import AddEditUser from "./addEditUser";
+import DeleteIcon from '@mui/icons-material/Delete';
+import BlockIcon from '@mui/icons-material/Block';
+import EditIcon from '@mui/icons-material/Edit';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function UserManagement({token}){
     const [search, setSearch] = useState("");
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [fname, setFName] = useState("");
     const [lname, setLName] = useState("");
-    const [ucid, setUcid] = useState("");
+    const [ucid, setUcid] = useState(0);
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("");
-    const [password, setPassword] = useState("");
+    const [addUser, setAddUser] = useState(true);
     const [items, setItems] = useState([]);
 
     const [user, setUser] = useState(null)
@@ -30,6 +35,7 @@ export default function UserManagement({token}){
     const [anchorElAP, setAnchorElAP] = React.useState(null);
     const toggleEditPopup = (event, user) => {
         setUser(user);
+        setAddUser(false);
         handleClickViewUser(event, user);
     }
     const toggleAddPopup = (event) => {
@@ -42,6 +48,7 @@ export default function UserManagement({token}){
             role:"Student",
             password: "",
         })
+        setAddUser(true);
         handleClickViewUser(event, user);
     }
     const handleClickViewUser = (event, user) => {
@@ -49,10 +56,6 @@ export default function UserManagement({token}){
         setIsAddOpen((previousOpen) => !previousOpen);
     };
     const canBeOpenAP = isAddOpen && Boolean(anchorElAP);
-    
-    useEffect(() => {
-       getUsers();
-    }, [])
 
     const getUsers = () => {
         UserService.getAllUsers(
@@ -70,7 +73,7 @@ export default function UserManagement({token}){
         const value = e.target.value;
         setFName(value);
         setLName(value);
-        setUcid(value);
+        setUcid(Number(value));
         setEmail(value);
         setRole(value);
         setSearch(value);
@@ -94,25 +97,6 @@ export default function UserManagement({token}){
         }).catch(error =>{
             console.log(error);
         })
-    }
-
-    const addUser = () => {
-        toggleAddPopup();
-        UserService.addUser(
-            Number(token.UCID),
-            token.password,
-            {
-                fname: fname,
-                lname: lname,
-                userid: ucid,
-                email: email,
-                role: role,
-                password: password
-            }
-        ).catch(error =>{
-            console.log(error);
-        })
-        getUsers();
     }
 
     const removeUser = () => {
@@ -152,7 +136,13 @@ export default function UserManagement({token}){
                     value={search} 
                     onChange={handleSearch}
                 />
-                <Button variant="contained" type='submit'>Search</Button>
+                    {"\t"}
+                <Button
+                    size="large"
+                    variant="contained"
+                    type='submit'
+                    endIcon={<SearchIcon />}
+                >Search</Button>
                 </div>
                 <div className="UserButtons">
 
@@ -160,7 +150,7 @@ export default function UserManagement({token}){
                 {canBeOpenAP && <Popup
                     content={<>
                         <div>
-                            <AddEditUser user={user} token={token} />
+                            <AddEditUser user={user} token={token} addUser={addUser} />
                             <Stack spacing={2} direction="row">
                                 <Button variant="outlined" onClick={handleClickViewUser}>Close</Button>
                             </Stack>
@@ -202,19 +192,22 @@ export default function UserManagement({token}){
                                             size="small"
                                             variant="contained"
                                             onClick={(e) => toggleEditPopup(e, row)}
-                                        >Edit User</Button>
+                                            endIcon={<EditIcon />}
+                                        >Edit</Button>
                                         {"\t"}
                                         <Button
                                             color="error"
                                             size="small"
                                             variant="contained"
+                                            startIcon={<DeleteIcon />}
                                             onClick={() => removeUser(row.userid)}
                                         >Delete</Button>
                                         {"\t"}
                                         <Button
-                                            color="error"
+                                            color="secondary"
                                             size="small"
                                             variant="contained"
+                                            endIcon={<BlockIcon />}
                                             onClick={() => blockUser(row.userid)}
                                         >Block</Button>
 
@@ -229,6 +222,7 @@ export default function UserManagement({token}){
                 Button
                 size="large"
                 variant="contained"
+                endIcon={<ControlPointIcon />}
                 onClick={toggleAddPopup}
             >Add User</Button>
         </div>

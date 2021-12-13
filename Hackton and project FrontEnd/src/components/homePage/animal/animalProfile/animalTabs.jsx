@@ -7,8 +7,8 @@ import Comments from "./comments";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import AnimalProfile from "./animalProfile";
-import EditAnimal from "./editAnimal";
-
+import AddEditAnimal from "./addEditAnimal";
+import "./AnimalProfilePopup.css"
 
 export default function AnimalTabs({animal, token}) {
     const [value, setValue] = React.useState(0);
@@ -41,11 +41,11 @@ export default function AnimalTabs({animal, token}) {
             </TabPanel>
 
             {token.token === "Admin" && <TabPanel value={value} index={1}>
-                <EditAnimal animal={animal} token={token} />
+                <AddEditAnimal animal={animal} token={token} />
             </TabPanel>}
 
             {token.token === "Care Attendant" && <TabPanel value={value} index={1}>
-                <EditAnimal animal={animal} token={token} />
+                <AddEditAnimal animal={animal} token={token} />
             </TabPanel>}
 
             <TabPanel value={value} index={2}>

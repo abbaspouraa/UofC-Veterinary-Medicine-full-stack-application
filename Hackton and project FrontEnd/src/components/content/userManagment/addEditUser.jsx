@@ -10,13 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableBody from "@mui/material/TableBody";
 import Table from "@mui/material/Table";
 
-export default function AddEditUser({user, token}) {
-    // const [fname, setFName] = useState("");
-    // const [lname, setLName] = useState("");
-    // const [ucid, setUcid] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [role, setRole] = useState("");
-    // const [password, setPassword] = useState("");
+export default function AddEditUser({user, token, addUser}) {
     const [fname, setFName] = useState(user.fname);
     const [lname, setLName] = useState(user.lname);
     const [ucid, setUcid] = useState(user.userid);
@@ -68,6 +62,7 @@ export default function AddEditUser({user, token}) {
     ];
 
     const handleAddUser = () => {
+        {addUser===false &&
         UserService.updateUser(
             Number(token.UCID),
             token.password,
@@ -83,6 +78,25 @@ export default function AddEditUser({user, token}) {
         ).catch(error =>{
             console.log(error);
         })
+        }
+
+        {addUser===true &&
+        UserService.addUser(
+            Number(token.UCID),
+            token.password,
+            {
+                fname: fname,
+                lname: lname,
+                userid: ucid,
+                email: email,
+                role: role,
+                password: password,
+                blocked: block
+            }
+        ).catch(error =>{
+            console.log(error);
+        })
+        }
     }
 
 

@@ -37,7 +37,8 @@
 
     .loginBox{
         margin: auto;
-        margin-top: 15rem;
+        margin-top: 14rem;
+        padding: 1rem;
         /*display: block;*/
         border: red;
         text-align: center;

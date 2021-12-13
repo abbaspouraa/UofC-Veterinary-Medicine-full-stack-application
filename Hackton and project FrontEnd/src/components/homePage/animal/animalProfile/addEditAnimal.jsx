@@ -10,8 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import Button from "@mui/material/Button";
 import AnimalService from "../../../service/AnimalService";
+import SaveIcon from '@mui/icons-material/Save';
 
-export default function EditAnimal({animal, token}) {
+export default function AddEditAnimal({animal, token}) {
 
     const [name, setName] = useState(animal.name);
     const [species, setSpecies] = useState(animal.species);
@@ -261,12 +262,11 @@ export default function EditAnimal({animal, token}) {
                         </TableCell>
                         <TableCell align="right">
                             <Button  variant="contained"
+                                     endIcon={<SaveIcon />}
                                      onClick={ (e) => handleSaveAnimal(e)}
                             >Save</Button>
                         </TableCell>
                     </TableRow>
-
-                    {/*<h1>{animal.name} is added to the database!</h1>*/}
 
                 </TableBody>
             </Table>

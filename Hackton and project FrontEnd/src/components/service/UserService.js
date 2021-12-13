@@ -17,7 +17,7 @@ class UserService{
     }
 
     addUser(ucid, pass, user){
-        return axios.post(USER_BASE_REST_API_URL + ucid + '/' + pass, user)
+        return axios.post(USER_BASE_REST_API_URL + "addUser/" + ucid + '/' + pass, user)
     }
 
     blockUser(ucid, pass, doomedUcid){
