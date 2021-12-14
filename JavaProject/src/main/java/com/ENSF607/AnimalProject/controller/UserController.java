@@ -29,6 +29,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll(ucid, pass));
     }
 
+    @GetMapping("/role/{ucid}/{pass}/{role}")
+    public ResponseEntity<List<User>> getUsersByRole(@PathVariable Long ucid,
+                                                     @PathVariable String pass,
+                                                     @PathVariable String role
+                                                     ) throws AuthenticationException {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUserByRole(ucid,pass,role));
+    }
+
 
     @PostMapping("/{ucid}/{pass}")
 	public ResponseEntity<List<User>> searchUsers(

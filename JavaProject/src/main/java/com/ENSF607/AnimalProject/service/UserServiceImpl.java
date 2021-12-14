@@ -25,6 +25,14 @@ public class UserServiceImpl{
         return userRepo.findAll();
     }
 
+    public List<User> getAllUserByRole(Long ucid, String pass, String role) throws AuthenticationException {
+        User u = userRepo.findByuseridAndPassword(ucid, pass);
+        if (u == null) {
+            throw new AuthenticationException("Only registered users can access");
+        }
+        return userRepo.findAllByrole(role);
+    }
+
     public List<User> searchUsers(Long ucid, String pass, User user) throws AuthenticationException {
 		User demander = userRepo.findByuseridAndPassword(ucid, pass);
 		if (demander == null || !(demander.getRole().equals("Admin") || demander.getRole().equals("Instructor"))){
@@ -39,6 +47,7 @@ public class UserServiceImpl{
 		return userRepo.searchUsers(fname,lname, uucid,email,role);
 	}
 
+
     public User addUser(Long ucid, String pass, User user) throws AuthenticationException {
         User demander = userRepo.findByuseridAndPassword(ucid, pass);
         if (demander == null || !(demander.getRole().equals("Admin") || demander.getRole().equals("Instructor"))){
@@ -49,7 +58,7 @@ public class UserServiceImpl{
 
     public void deleteUser(Long ucid, String pass, Long doomedUserUcid) throws NotFoundException, AuthenticationException {
         User demander = userRepo.findByuseridAndPassword(ucid, pass);
-        if (demander == null || !demander.getRole().equals("Admin")){
+        if (demander == null || !(demander.getRole().equals("Admin") || demander.getRole().equals("Instructor"))){
             throw new AuthenticationException("You are not authorized!");
         }
         User u = userRepo.findByuserid(doomedUserUcid);
@@ -91,7 +100,7 @@ public class UserServiceImpl{
 
 	public User blockUser(Long ucid, String pass, Long bloockedUcid) throws NotFoundException, AuthenticationException {
         User demander = userRepo.findByuseridAndPassword(ucid, pass);
-        if (demander == null || !(demander.getRole().equals("Admin")) || demander.getRole().equals("Instructor")){
+        if (demander == null || !(demander.getRole().equals("Admin") || demander.getRole().equals("Instructor"))){
             throw new AuthenticationException("You are not authorized!");
         }
 
