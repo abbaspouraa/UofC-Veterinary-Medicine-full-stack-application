@@ -13,7 +13,7 @@ class AnimalService{
     }
 
     deleteAnimal(ucid, pass, animalId){
-        return axios.delete(ANIMAL_BASE_REST_API_URL   + ucid + '/' + pass + '/' + animalId);
+        return axios.delete(ANIMAL_BASE_REST_API_URL + ucid + '/' + pass + '/' + animalId);
     }
 
     getSearchAnimal(ucid, pass, name, species, sex){
@@ -34,6 +34,14 @@ class AnimalService{
 
     updateAnimalStatus(ucid, pass, id, status){
         return axios.get(ANIMAL_BASE_REST_API_URL + "stat/" + ucid + '/' + pass +  '/' + id + '/' + status);
+    }
+
+    downloadFile(fileName){
+        return axios.get(ANIMAL_BASE_REST_API_URL + "downloadFile/" + fileName);
+    }
+
+    getAnimalById(ucid, pass, id){
+        return axios.get(ANIMAL_BASE_REST_API_URL + "byId/" + ucid + '/' + pass +  '/' + id);
     }
 }
 

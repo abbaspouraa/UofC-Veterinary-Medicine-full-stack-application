@@ -26,6 +26,10 @@ public class Animal {
 	String status;
 	Long bookedId;
 	String request;
+	String fileNewName;		// The name that we save the file to
+	String fileName;		// What user sends us
+	String fileSize;
+	String fileDateCreated;
 
 	public String getRequest() {
 		return request;
@@ -169,5 +173,37 @@ public class Animal {
 
 	public void setBookedId(Long bookedId) {
 		this.bookedId = bookedId;
+	}
+
+	public String getFileNewName() {
+		return fileNewName;
+	}
+
+	public void setFileNewName(String fileNewName) {
+		this.fileNewName = fileNewName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
+
+	public String getFileDateCreated() {
+		return fileDateCreated;
+	}
+
+	public void setFileDateCreated(String fileDateCreated) {
+		this.fileDateCreated = fileDateCreated;
 	}
 }

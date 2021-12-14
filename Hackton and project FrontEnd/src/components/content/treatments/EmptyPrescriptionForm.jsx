@@ -3,11 +3,14 @@ import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import TreatmentService from '../../service/TreatmentService';
+import DownloadIcon from "@mui/icons-material/Download";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import animalService from "../../service/AnimalService";
+import { saveAs } from "file-saver";
 
 export default function EmptyPrescriptionForm({statusId, token}) {
 
     const [careattid, setCareAttId] = useState('');
-    const [stage, setStage] = useState('');
     const [animalid, setAnimalId] = useState('');
     const [processDescription, setProcessDescription] = useState('');
     const [temperature, setTemperature] = useState('');
@@ -15,8 +18,7 @@ export default function EmptyPrescriptionForm({statusId, token}) {
     const [heartRate, setHeartRate] = useState('');
     const [symptoms, setSymptoms] = useState('');
     const [diagnoseDrug, setDiagnoseDrug] = useState('');
-    const [vetid, setVetId] = useState('');
-
+    const [animal, setAnimal] = useState(null);
 
     const givePrescription = (e) => {
         e.preventDefault();
@@ -38,7 +40,18 @@ export default function EmptyPrescriptionForm({statusId, token}) {
         diagnoseDrug,
     }
 
-    
+    const handleDownload = () =>{
+        animalService.getAnimalById(
+            Number( token.UCID ),
+            token.password,
+            Number(animalid)
+        ).then( r  => {
+            saveAs(
+                "http://localhost:8090/animal/downloadFile/"+r.data.fileNewName,
+                r.data.fileName
+            );
+        })
+    }
 
     useEffect(() => {
         
@@ -103,6 +116,17 @@ export default function EmptyPrescriptionForm({statusId, token}) {
             <TextField id="outlined-multiline-static" label="Symptoms" variant="outlined" multiline 
                     maxRows={4} value={symptoms}
                             onChange={(e) => setSymptoms(e.target.value)} />
+            </div>
+
+            <p>* Please use the download button to see the submitted pictures by the care attendant</p>
+
+            <div>
+                <Button
+                    startIcon={<PhotoCameraIcon />}
+                    endIcon={<DownloadIcon />}
+                    variant="contained"
+                    onClick={handleDownload}
+                >Download Image</Button>
             </div>
 
             <h3>For Health Technician Use Only</h3>

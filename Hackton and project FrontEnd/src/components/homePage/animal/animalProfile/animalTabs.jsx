@@ -12,7 +12,16 @@ import "./AnimalProfilePopup.css"
 import AnimalHealthRecord from "../../../content/treatments/HealthRecord";
 import TreatmentProcess from "../../../content/treatments/TreatmentProcess";
 import OngoingCareAndVaccination from "../../../content/treatments/OngoingCareAndVaccination";
+import FileUploadPage from "./animalPictures";
+import Stack from "@mui/material/Stack";
+import * as PropTypes from "prop-types";
+import Divider from "@mui/material/Divider";
 
+function Item(props) {
+    return null;
+}
+
+Item.propTypes = {children: PropTypes.node};
 export default function AnimalTabs({animal, token}) {
     const [value, setValue] = React.useState(0);
 
@@ -37,6 +46,7 @@ export default function AnimalTabs({animal, token}) {
                     <Tab label="Health Records" {...a11yProps(2)} />
 
                     {token.token === "Admin" && <Tab label="Edit profile" {...a11yProps(3)} />}
+                    {token.token === "Admin" && <Tab label="Pictures" {...a11yProps(4)} />}
 
                     {token.token === "Care Attendant" && <Tab label="Treatment Process" {...a11yProps(3)} />}
                     {token.token === "Care Attendant" && <Tab label="Ongoing Care" {...a11yProps(4)} />}
@@ -66,7 +76,7 @@ export default function AnimalTabs({animal, token}) {
 
             {/*Care att*/}
             {token.token === "Care Attendant" && <TabPanel index={3} value={value}>
-                <TreatmentProcess animalId={animal.animalid} token={token} />
+                <TreatmentProcess animal={animal} token={token} />
             </TabPanel>}
 
             {token.token === "Care Attendant" && <TabPanel index={4} value={value}>

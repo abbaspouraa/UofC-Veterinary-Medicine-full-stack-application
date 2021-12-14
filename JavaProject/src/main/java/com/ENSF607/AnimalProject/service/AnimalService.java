@@ -6,11 +6,18 @@ import com.ENSF607.AnimalProject.model.User;
 import com.ENSF607.AnimalProject.repository.AnimalRepository;
 import com.ENSF607.AnimalProject.repository.UserRepo;
 import javassist.NotFoundException;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.AuthenticationException;
+import javax.transaction.Transactional;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AnimalService {
@@ -61,7 +68,11 @@ public class AnimalService {
 		return animalRepository.findByname(name);
 	}
 
-	public List<Animal> searchAnimal(String name, String species, String sex){
+	public List<Animal> searchAnimal(Long ucid, String pass, String name, String species, String sex) throws AuthenticationException {
+		User u = userRepo.findByuseridAndPassword(ucid, pass);
+		if (u==null){
+			throw new AuthenticationException("Only registered users search animals");
+		}
 		return animalRepository.searchAnimal(name,species,sex);
 	}
 
@@ -121,9 +132,9 @@ public class AnimalService {
 
 		// Instructor is booking an animal
 		if (request.equals("Requested") && u.getRole().equals("Instructor")){
-			// The animal must be available to be booked
-			if (!theAnimal.getRequest().equals("Available")){
-				throw new AuthenticationException("Animal is already booked");
+			// The animal must be available and healthy to be booked
+			if (!theAnimal.getRequest().equals("Available") || !theAnimal.getStatus().equals("Healthy")){
+				throw new AuthenticationException("Animal is unavailable");
 			}
 			// Animal is available
 			theAnimal.setRequest(request); // updating request
@@ -172,4 +183,42 @@ public class AnimalService {
 		animalRepository.deleteById(id);
         return "Successfully deleted: Animal " + id;
     }
+
+	@Transactional
+	public Animal upload(Long id, MultipartFile file) throws Exception {
+		final Animal animal = animalRepository.findById(id).orElseThrow(() -> new Exception("Animal not found")); // is id exist if exist we save filename in table
+
+		if (file != null) {
+
+			File destinationFile = null;
+			// Check file type
+//			if (FilenameUtils.getExtension(file.getOriginalFilename()).toUpperCase().equals("EXE")) {
+//				System.out.println("not this extention");
+//			}
+			if (!file.isEmpty()) {
+
+				String currentDate = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+
+				String changedFileName = file.getOriginalFilename().replace(
+						file.getOriginalFilename(),
+						UUID.randomUUID() + "." + FilenameUtils.getExtension(file.getOriginalFilename())
+				).toUpperCase();
+
+				String uploadDir = "E:\\Amir\\Uni\\Software M.Eng\\Fall\\607 Software Design and Architecture I\\Project\\pictures\\";
+				new File(uploadDir + File.separator).mkdirs();
+				destinationFile = new File(uploadDir + changedFileName);
+				file.transferTo(destinationFile);
+
+				animal.setFileName(file.getOriginalFilename());
+				animal.setFileNewName(changedFileName);
+				animal.setFileSize(String.valueOf(file.getSize()));
+				animal.setFileDateCreated(currentDate);
+			}
+
+		}
+
+//		if (file != null && registerPriceHeader.getSpareProductFileNewName() != null)
+//			new File(uploadDir + "fani/" + registerPriceHeader.getSpareProductFileNewName()).delete();
+		return animalRepository.save(animal);// dar table esm file ro sabt mikonel
+	}
 }
