@@ -132,6 +132,11 @@ public class AnimalService {
 			throw new NotFoundException("Such animal does not exist!");
 		}
 
+		// If the newly added animal has a blank Request attribute
+		if (theAnimal.getRequest()==null){
+			theAnimal.setRequest("Available");
+		}
+
 		// Instructor is booking an animal
 		if (request.equals("Requested") && u.getRole().equals("Instructor")){
 			// The animal must be available and healthy to be booked
