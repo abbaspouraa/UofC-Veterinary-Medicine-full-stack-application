@@ -11,6 +11,7 @@ import UserManagement from '../content/userManagment/UserManagement';
 import "./PageContents.css";
 import AlertingAnimals from "../content/treatments/AlertingAnimals";
 import UnderTreatmentAnimal from "../content/treatments/UnderTreatmentAnimal";
+import InstructorStudentManagment from '../content/userManagment/InstructorStudentManagment';
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -68,7 +69,7 @@ export default function HomePageTabs({token}) {
 
                     {/*Instructor*/}
                     {token.token ==="Instructor" && <Tab label="Booking Management" {...a11yProps(1)} />}
-                    {token.token === "Instructor" && <Tab label="User Management" {...a11yProps(2)} />}
+                    {token.token === "Instructor" && <Tab label="Student Management" {...a11yProps(2)} />}
 
                     {/*Care att tabs*/}
                     {token.token === "Care Attendant" && <Tab label="Requested Animals" {...a11yProps(1)} />}
@@ -113,7 +114,7 @@ export default function HomePageTabs({token}) {
             </TabPanel>}
 
             {token.token === "Instructor" && <TabPanel value={value} index={2}>
-                <UserManagement token={token}/>
+                <InstructorStudentManagment token={token}/>
             </TabPanel>}
 
 
