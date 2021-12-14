@@ -15,6 +15,9 @@ class UserService{
     searchUsers(ucid, pass, user){
         return axios.post(USER_BASE_REST_API_URL + ucid + '/' + pass, user)
     }
+    searchUsersByRole(ucid, pass, user){
+        return axios.post(USER_BASE_REST_API_URL + 'role/' +ucid + '/' + pass, user)
+    }
 
     searchUsersByRole(ucid, pass, user){
         return axios.post(USER_BASE_REST_API_URL + 'role/' +ucid + '/' + pass, user)
