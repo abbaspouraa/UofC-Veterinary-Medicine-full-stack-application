@@ -38,8 +38,10 @@ public class AnimalService {
 
 	public List<Animal> getRequestedAnimals(Long ucid, String pass, String request) throws AuthenticationException {
 		User u = userRepo.findByuseridAndPassword(ucid, pass);
-		if (u==null || !u.getRole().equals("Admin")){
-			throw new AuthenticationException("Only admins can get get all requested animals");
+		if (u==null || !(u.getRole().equals("Admin") ||
+				u.getRole().equals("Care Attendant"))
+		){
+			throw new AuthenticationException("Only admins and Care attendants can get get all requested animals");
 		}
 		return animalRepository.findAllByrequest(request);
 	}

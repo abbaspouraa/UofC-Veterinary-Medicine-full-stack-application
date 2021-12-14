@@ -8,8 +8,16 @@ class UserService{
         return axios.get(USER_BASE_REST_API_URL + "getAll/" + ucid + '/' + pass);
     }
 
+    getAllUsersByRole(ucid, pass, role){
+        return axios.get(USER_BASE_REST_API_URL + "role/" + ucid + "/" + pass + "/" + role);
+    }
+
     searchUsers(ucid, pass, user){
         return axios.post(USER_BASE_REST_API_URL + ucid + '/' + pass, user)
+    }
+
+    searchUsersByRole(ucid, pass, user){
+        return axios.post(USER_BASE_REST_API_URL + 'role/' +ucid + '/' + pass, user)
     }
 
     deleteUser(ucid, pass, doomedUCID){

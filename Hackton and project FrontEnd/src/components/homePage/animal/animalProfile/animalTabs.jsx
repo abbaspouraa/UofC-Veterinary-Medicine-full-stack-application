@@ -46,7 +46,6 @@ export default function AnimalTabs({animal, token}) {
                     <Tab label="Health Records" {...a11yProps(2)} />
 
                     {token.token === "Admin" && <Tab label="Edit profile" {...a11yProps(3)} />}
-                    {token.token === "Admin" && <Tab label="Pictures" {...a11yProps(4)} />}
 
                     {token.token === "Care Attendant" && <Tab label="Treatment Process" {...a11yProps(3)} />}
                     {token.token === "Care Attendant" && <Tab label="Ongoing Care" {...a11yProps(4)} />}
