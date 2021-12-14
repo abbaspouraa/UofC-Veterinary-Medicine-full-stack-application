@@ -20,7 +20,7 @@ ALi Zirahi	30036449
 
 **Please note**: The "sex" attribute of animal class is set to Character ('m' or 'f')!
 
-- **For more details please refer to our video demo.**
+- **For more details please refer to our video demo. You can find it in this repo (ENSF607_FinalProjectDemo.mp4).**
 
 # Some screenshots
 ![Screenshot](DemoImages/LogInPage.jpg)
