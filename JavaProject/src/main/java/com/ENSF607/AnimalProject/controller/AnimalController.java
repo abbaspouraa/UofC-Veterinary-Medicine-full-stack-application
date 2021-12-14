@@ -7,9 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/animal")
@@ -27,7 +34,7 @@ public class AnimalController {
 		return ResponseEntity.status(HttpStatus.OK).body(animalService.getAllData(ucid, pass));
 	}
 
-	@GetMapping("/{ucid}/{pass}/{id}")
+	@GetMapping("byId/{ucid}/{pass}/{id}")
 	public ResponseEntity<Animal> getAnimalById(
 			@PathVariable Long ucid,
 			@PathVariable String pass,
@@ -105,10 +112,55 @@ public class AnimalController {
 		return animalService.deleteAnimal(ucid, pass, id);
     }
 	
-	@GetMapping("/{name}/{species}/{sex}")
-	public ResponseEntity<List<Animal>> searchAnimal(@PathVariable(required = false) String name,
-													 @PathVariable(required = false) String species,
-													 @PathVariable(required = false) String sex){
-		return ResponseEntity.status(HttpStatus.OK).body(animalService.searchAnimal(name, species, sex));
+	@GetMapping("/{ucid}/{pass}/{name}/{species}/{sex}")
+	public ResponseEntity<List<Animal>> searchAnimal(
+			@PathVariable Long ucid,
+			@PathVariable String pass,
+			@PathVariable(required = false) String name,
+			@PathVariable(required = false) String species,
+			@PathVariable(required = false) String sex
+	) throws AuthenticationException {
+		return ResponseEntity.status(HttpStatus.OK).body(animalService.searchAnimal(ucid, pass, name, species, sex));
 	}
+
+	@GetMapping(value = "/downloadFile/{fileName}")
+	public void downloadFile(
+			HttpServletResponse response,
+			@PathVariable String fileName
+	) throws Exception {
+		String filePath = "E:\\Amir\\Uni\\Software M.Eng\\Fall\\607 Software Design and Architecture I\\Project\\pictures\\" + fileName;
+		File downloadFile = new File(filePath);
+		FileInputStream inputStream = new FileInputStream(downloadFile);
+		String mimeType = "application/octet-stream";
+		response.setContentType(mimeType);
+		response.setContentLength((int)downloadFile.length());
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", fileName);
+		response.setHeader(headerKey, headerValue);
+
+		BufferedInputStream bis = new BufferedInputStream(inputStream);
+		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+		byte[] buf = new byte[1024];
+		while (true) {
+			int length = bis.read(buf);
+			if (length == -1)
+				break;
+
+			bos.write(buf, 0, length);
+		}
+		bos.flush();
+		bos.close();
+		bis.close();
+	}
+
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Animal> upload(
+			@PathVariable Long id,
+			@RequestParam(value = "file") MultipartFile file
+//			Principal principal
+	) throws Exception {
+		return ResponseEntity.status(HttpStatus.OK).body(animalService.upload(id, file));
+	}
+
 }

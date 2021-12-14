@@ -6,11 +6,12 @@ import TreatmentService from '../../service/TreatmentService';
 
 //For changing animal status
 import AnimalService from '../../service/AnimalService';
+import FileUploadPage from "../../homePage/animal/animalProfile/animalPictures";
 
-export default function TreatmentProcess({animalId, token}) {
+export default function TreatmentProcess({animal, token}) {
 
     const [careattid, setCareAttId] = useState(token.UCID);
-    const [animalid, setAnimalId] = useState(animalId);
+    const [animalid, setAnimalId] = useState(animal.animalid);
     const [briefDescription, setBriefDescription] = useState('');
     const [temp, setTemp] = useState('');
     const [weight, setWeight] = useState('');
@@ -29,7 +30,7 @@ export default function TreatmentProcess({animalId, token}) {
             {
                 stage: 'started',
                 careattid: token.UCID,
-                animalid: animalId,
+                animalid: animal.animalid,
                 processDescription: briefDescription,
                 temperature: temp,
                 weight: weight,
@@ -43,11 +44,11 @@ export default function TreatmentProcess({animalId, token}) {
 
     //  To update animal status to Sick
     const updateAnimalToSick = (e) => {
-        if (animalId)
+        if (animal.animalid)
             AnimalService.updateAnimalStatus(
                 Number(token.UCID),
                 token.password,
-                animalId,
+                animal.animalid,
                 "Under Treatment"
             ).then((response) => {
 
@@ -65,11 +66,7 @@ export default function TreatmentProcess({animalId, token}) {
             noValidate
             autoComplete="off"
         >
-            
-
-           
             <h3>---  To be filled By Care Att. --- </h3>
-
 
             <div>
             <TextField disabled label="Care Attendent ID" variant="outlined" value={careattid} fullWidth
@@ -102,6 +99,11 @@ export default function TreatmentProcess({animalId, token}) {
                     maxRows={4} value={symptoms}
             onChange={(e) => setSymptoms(e.target.value)} />
             </div>
+
+            <div>
+                <FileUploadPage animal={animal} />
+            </div>
+
             <Button size="small" variant="contained"
                         onClick={(e) => [startTreatment(e), updateAnimalToSick(e)]}
             >Submit</Button>
